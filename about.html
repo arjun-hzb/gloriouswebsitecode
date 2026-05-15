@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | Glorious Public School</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    
+    <style>
+        :root {
+            --primary: #1a237e;
+            --accent: #ffd700;
+            --text-dark: #2c3e50;
+            --white: #ffffff;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Outfit', sans-serif; }
+        body { overflow-x: hidden; background-color: #f8f9fa; }
+
+        .about-hero {
+            height: 60vh;
+            background: linear-gradient(rgba(26, 35, 126, 0.8), rgba(26, 35, 126, 0.8)), 
+                        url('https://www.gloriouspublicschool.com/gallery/building.png') center/cover no-repeat;
+            display: flex; justify-content: center; align-items: center; text-align: center; color: white;
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0% 100%);
+        }
+
+        .hero-content h1 { font-size: 45px; font-weight: 800; text-transform: uppercase; }
+
+        .content-wrapper { max-width: 1100px; margin: -50px auto 50px; padding: 0 20px; }
+        .main-card { background: white; padding: 60px; border-radius: 30px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+
+        .top-meta { display: flex; justify-content: center; gap: 20px; margin-bottom: 40px; flex-wrap: wrap; }
+        .meta-box { background: #f0f2f5; padding: 12px 20px; border-radius: 50px; font-size: 14px; font-weight: 600; color: var(--primary); border: 1px solid #ddd; }
+
+        .section-lang { margin-bottom: 60px; border-bottom: 2px dashed #eee; padding-bottom: 40px; }
+        .section-lang:last-child { border-bottom: none; }
+
+        .school-info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+        .about-text h2 { font-size: 32px; color: var(--primary); margin-bottom: 20px; position: relative; }
+        .about-text h2::after { content: ''; position: absolute; left: 0; bottom: -5px; width: 60px; height: 4px; background: var(--accent); }
+        .about-text p { font-size: 16px; line-height: 1.8; color: #555; margin-bottom: 15px; text-align: justify; }
+
+        .about-image img { width: 100%; border-radius: 20px; box-shadow: 15px 15px 0px var(--primary); transition: 0.5s; }
+
+        .vision-mission { margin-top: 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .vision-card { background: var(--primary); color: white; padding: 30px; border-radius: 15px; }
+        .vision-card h3 { color: var(--accent); margin-bottom: 10px; }
+
+        .back-btn { display: inline-block; margin-top: 40px; padding: 12px 30px; background: var(--primary); color: white; text-decoration: none; border-radius: 50px; font-weight: 600; transition: 0.3s; }
+        .back-btn:hover { background: var(--accent); color: var(--primary); transform: translateX(-5px); }
+
+        /* --- MODERN SOCIAL FLOAT (Same as Index) --- */
+        .social-float { position: fixed; right: 25px; bottom: 30px; display: flex; flex-direction: column; gap: 15px; z-index: 2000; }
+        .social-btn { 
+            width: 55px; height: 55px; display: flex; align-items: center; justify-content: center; color: white; border-radius: 18px; 
+            text-decoration: none; font-size: 24px; background: rgba(26, 35, 126, 0.1); backdrop-filter: blur(10px); 
+            border: 1px solid rgba(255, 255, 255, 0.3); box-shadow: 0 8px 32px rgba(0,0,0,0.15); 
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); position: relative;
+        }
+        .insta:hover { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); transform: scale(1.2) rotate(8deg); }
+        .yt:hover { background: #FF0000; transform: scale(1.2) rotate(-8deg); }
+        .fb:hover { background: #1877F2; transform: scale(1.2) rotate(8deg); }
+        .wa:hover { background: #25D366; transform: scale(1.2) rotate(-8deg); }
+
+        .social-btn::before {
+            content: attr(data-name); position: absolute; right: 70px; background: #1a237e; color: white;
+            padding: 5px 12px; border-radius: 5px; font-size: 12px; opacity: 0; transition: 0.3s; white-space: nowrap;
+        }
+        .social-btn:hover::before { opacity: 1; right: 75px; }
+
+        .dev-name {
+            font-size: 18px; font-weight: 600; text-decoration: none; display: inline-block;
+            background: linear-gradient(90deg, #ffd700, #ffffff, #ffd700); background-size: 200% auto;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: shine 3s linear infinite;
+        }
+        @keyframes shine { to { background-position: 200% center; } }
+
+        @media (max-width: 768px) {
+            .school-info-grid { grid-template-columns: 1fr; }
+            .vision-mission { grid-template-columns: 1fr; }
+            .hero-content h1 { font-size: 28px; }
+            .main-card { padding: 30px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="about-hero animate__animated animate__fadeIn">
+        <div class="hero-content">
+            <h1 class="animate__animated animate__slideInDown">About Our School</h1>
+            <p>Quality Education | Excellence | Character</p>
+        </div>
+    </div>
+
+    <div class="content-wrapper">
+        <div class="main-card animate__animated animate__fadeInUp">
+            
+            <!-- Quick Facts -->
+            <div class="top-meta">
+                <div class="meta-box"><i class="fas fa-calendar-alt"></i> Estd: 1999</div>
+                <div class="meta-box"><i class="fas fa-id-card"></i> U-DISE: 20042002404</div>
+                <div class="meta-box"><i class="fas fa-university"></i> Vidhan Welfare Society</div>
+            </div>
+
+            <!-- English Section -->
+            <div class="section-lang">
+                <div class="school-info-grid">
+                    <div class="about-text">
+                        <h2>About us</h2>
+                        <p><b>Glorious Public School, Maheshra</b> is located in the serene surroundings of Daru Block, Hazaribag, Jharkhand. Established in 1999, the school has been a pioneer in rural education for over two decades.</p>
+                        <p>Managed by the <b>Vidhan Welfare Society</b>, we follow the CBSE curriculum, focusing on holistic development and character building beyond textbooks.</p>
+                        <p>Our mission is to provide a safe, modern, and nurturing environment where every student can discover their true potential and prepare for a successful future.</p>
+                    </div>
+                    <div class="about-image">
+                        <img src="https://www.gloriouspublicschool.com/gallery/building.png" alt="School Building">
+                    </div>
+                </div>
+                <div class="vision-mission">
+                    <div class="vision-card"><h3>Vision</h3><p>To empower every child with quality education and moral values to build a better society.</p></div>
+                    <div class="vision-card" style="background:#311b92;"><h3>Mission</h3><p>To foster academic excellence and physical growth through modern learning techniques.</p></div>
+                </div>
+            </div>
+
+            <!-- Hindi Section -->
+            <div class="section-lang" style="background: #fffdf0; padding: 30px; border-radius: 20px; border: 1px solid #ffeaa7;">
+                <div class="school-info-grid">
+                    <div class="about-text">
+                        <h2 style="color: #d32f2f;">विद्यालय का परिचय</h2>
+                        <p><b>ग्लोरियस पब्लिक स्कूल, महेशरा</b> झारखंड के हजारीबाग जिले के दारू प्रखंड के शांत और प्राकृतिक वातावरण में स्थित है। सन् 1999 में स्थापित यह विद्यालय पिछले दो दशकों से अधिक समय से ग्रामीण शिक्षा के क्षेत्र में एक अग्रणी संस्थान रहा है।</p>
+                        <p><b>विधान वेलफेयर सोसाइटी</b> द्वारा संचालित, हमारा विद्यालय सीबीएसई (CBSE) पैटर्न का पालन करता है। हमारा मुख्य उद्देश्य बच्चों को केवल किताबी ज्ञान देना ही नहीं, बल्कि उनका सर्वांगीण विकास और चरित्र निर्माण करना है।</p>
+                        <p>हमारा लक्ष्य एक ऐसा सुरक्षित और आधुनिक वातावरण प्रदान करना है जहाँ हर छात्र अपनी छिपी हुई प्रतिभा को पहचान सके और उज्ज्वल भविष्य के लिए तैयार हो सके।</p>
+                    </div>
+                    <div class="about-image">
+                        <img src="https://www.gloriouspublicschool.com/gallery/building.png" alt="School Building">
+                    </div>
+                </div>
+                <div class="vision-mission">
+                    <div class="vision-card" style="background: #d32f2f;"><h3>हमारा लक्ष्य (Vision)</h3><p>हर बच्चे को गुणवत्तापूर्ण शिक्षा और नैतिक मूल्यों से सशक्त बनाना ताकि एक बेहतर समाज का निर्माण हो सके।</p></div>
+                    <div class="vision-card" style="background: #b71c1c;"><h3>हमारा उद्देश्य (Mission)</h3><p>आधुनिक शिक्षण विधियों के माध्यम से शैक्षणिक उत्कृष्टता और शारीरिक विकास को बढ़ावा देना।</p></div>
+                </div>
+            </div>
+
+            <center><a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Home</a></center>
+        </div>
+    </div>
+
+    <!-- SOCIAL FLOAT (Same as Index) -->
+    <div class="social-float">
+        <a href="https://wa.link/48bjbp" class="social-btn wa" data-name="WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+        <a href="https://www.facebook.com/share/1CGbYGJvvP/" class="social-btn fb" data-name="Facebook">
+            <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="https://youtube.com/@gps-maheshra" class="social-btn yt" data-name="YouTube">
+            <i class="fab fa-youtube"></i>
+        </a>
+        <a href="https://www.instagram.com/gpsmaheshra" class="social-btn insta" data-name="Instagram">
+            <i class="fab fa-instagram"></i>
+        </a>
+    </div>
+
+    <!-- Same Footer as Index -->
+    <footer style="background: #1a237e; color: white; padding: 40px 10%; text-align: center; border-top: 4px solid #ffd700;">
+        <p>&copy; 2026 Glorious Public School, Hazaribag | <a href="contact.html" style="color: #ffd700;">Contact Us</a></p>
+        <div style="margin-top: 25px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1);">
+            <p style="font-size: 13px; color: #aaa;">Managed & Contact for Web Development</p>
+            <a href="https://www.instagram.com/your__ri0" target="_blank" class="dev-name">Developed by Arjun</a>
+        </div>
+    </footer>
+
+</body>
+</html>
