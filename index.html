@@ -144,7 +144,7 @@
         }
         @keyframes shine { to { background-position: 200% center; } }
 
-        .award-slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: 1s; }
+        .award-slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: 1s; cursor: pointer; }
         .award-slide.active { opacity: 1; }
 
         @media (max-width: 600px) {
@@ -176,6 +176,14 @@
         <div class="modal-content">
             <button class="close-modal" onclick="closeModal('examModal')">X</button>
             <img src="https://www.gloriouspublicschool.com/gallery/examschedule.png" alt="Exam Schedule" style="width: 100%; border-radius: 5px;">
+        </div>
+    </div>
+
+    <!-- New Image Lightbox Modal for Award Click -->
+    <div id="imageLightboxModal" class="modal-overlay" onclick="closeModal('imageLightboxModal')">
+        <div class="modal-content" style="max-width: 80%; background: transparent; padding: 0;">
+            <button class="close-modal" onclick="closeModal('imageLightboxModal')">X</button>
+            <img id="lightboxTargetImg" src="" alt="Enlarged Award" style="width: 100%; max-height: 85vh; object-fit: contain; border-radius: 8px;">
         </div>
     </div>
 
@@ -277,17 +285,29 @@
             <div style="flex: 1; min-width: 300px;">
                 <h2 class="section-title">Principal's Message</h2>
                 <p style="font-style: italic; color: #1a237e; font-weight: 600; margin-bottom: 20px; border-left: 4px solid #ffd700; padding-left: 15px;">
-                    "The goal of education is the advancement of knowledge and the dissemination of truth."
+                    "Education is the most powerful weapon which you can use to change the world."
                 </p>
                 
-                <p style="margin-bottom: 15px;">It is with great pride and a sense of profound responsibility that I welcome you to <strong>Glorious Public School, Maheshra, Hazaribagh</strong>. As we navigate through an era of rapid global change, our institution stands as a beacon of academic excellence and character building, dedicated to nurturing the leaders of tomorrow.</p>
+                <p style="margin-bottom: 15px; text-align: justify;">
+                    Welcome to <strong>Glorious Public School, Maheshra, Hazaribagh</strong>. As the Principal, it is a privilege to lead an institution that has spent over 25 years fostering academic excellence, integrity, and a lifelong passion for learning. In today's rapidly changing global landscape, our mission goes beyond textbook education. We aim to nurture young individuals into responsible, innovative, and empathetic citizens equipped to face future challenges with utmost confidence.
+                </p>
 
-                <h4 style="color: #1a237e; margin: 20px 0 10px;">Our Educational Philosophy</h4>
-                <p style="margin-bottom: 15px;">At Glorious Public School, we believe that education is not merely the acquisition of degrees but a lifelong journey of self-discovery. Our curriculum is meticulously designed to balance academic rigour with creative exploration.</p>
+                <p style="margin-bottom: 15px; text-align: justify;">
+                    At Glorious Public School, we strive to offer an inclusive learning ecosystem where modern pedagogical methods seamlessly integrate with deep values. Our state-of-the-art smart classrooms, fully equipped laboratories, comprehensive dynamic sports curricula, and premium separate secure residential hostel facilities for both boys and girls ensure a truly comprehensive and enriching educational journey.
+                </p>
+
+                <p style="margin-bottom: 15px; font-weight: 600; color: #d32f2f; background: #fffde7; padding: 10px; border-radius: 5px; border-left: 4px solid #fbc02d;">
+                    <i class="fas fa-bullhorn" style="margin-right: 8px;"></i> <strong>ANNOUNCEMENT: FREE ADMISSION OPEN (SESSION 2026-2027)</strong><br>
+                    To support quality and accessible education for all talented minds, our institution is delighted to announce that registration and admissions are now open with 100% Free Admission fees for the upcoming academic session. We invite parents to enroll their children and become part of our glorious heritage.
+                </p>
+
+                <p style="margin-bottom: 15px; text-align: justify;">
+                    We strongly believe that a successful educational framework relies on a robust partnership between the school administration, dedicated faculty, and supportive parents. Together, let us guide our students toward achieving higher milestones and shaping a brighter tomorrow.
+                </p>
 
                 <p style="margin-top: 25px; font-weight: 600; color: #1a237e;">
                     With Warm Regards,<br>
-                    <span style="font-size: 18px;">[Renu Kumari]</span><br>
+                    <span style="font-size: 18px;">Renu Kumari</span><br>
                     Principal, Glorious Public School<br>
                     Maheshra, Hazaribagh, Jharkhand
                 </p>
@@ -299,11 +319,13 @@
     <section id="awards">
         <h2 class="section-title" data-aos="fade-right">Awards & Recognition</h2>
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
-            <img src="https://www.gloriouspublicschool.com/gallery/award.png" alt="Award 1" style="height: 250px; width: 100%; object-fit: cover; border-radius: 10px;" data-aos="flip-left">
-            <img src="https://www.gloriouspublicschool.com/gallery/award2.png" alt="Award 2" style="height: 250px; width: 100%; object-fit: cover; border-radius: 10px;" data-aos="flip-left" data-aos-delay="200">
-            <div id="awardSlider" style="height: 250px; position: relative; border-radius: 10px; overflow: hidden; border: 3px solid #ffd700;" data-aos="flip-left" data-aos-delay="400">
+            <img src="https://www.gloriouspublicschool.com/gallery/award.png" alt="Award 1" style="height: 250px; width: 100%; object-fit: cover; border-radius: 10px; cursor: pointer;" data-aos="flip-left" onclick="openLightbox(this.src)">
+            <img src="https://www.gloriouspublicschool.com/gallery/award2.png" alt="Award 2" style="height: 250px; width: 100%; object-fit: cover; border-radius: 10px; cursor: pointer;" data-aos="flip-left" data-aos-delay="200" onclick="openLightbox(this.src)">
+            <div id="awardSlider" style="height: 250px; position: relative; border-radius: 10px; overflow: hidden; border: 3px solid #ffd700; cursor: pointer;" data-aos="flip-left" data-aos-delay="400" onclick="openLightbox(this.querySelector('.award-slide.active').src)">
                 <img src="https://www.gloriouspublicschool.com/gallery/award.png" class="award-slide active" alt="Slide Award">
                 <img src="https://www.gloriouspublicschool.com/gallery/news.png" class="award-slide" alt="News Recognition">
+                <!-- Nayi PNG Slide Image Add Ki Gayi Hai -->
+                <img src="https://www.gloriouspublicschool.com/gallery/gpsstudent80marks.png" class="award-slide" alt="New Award Recognition">
             </div>
         </div>
     </section>
@@ -358,7 +380,13 @@
             document.getElementById('examModal').style.display = 'flex';
         }
 
-        // --- New: Notice Modal Auto Slider ---
+        // --- Function to Open Image Lightbox/Zoom on Tap ---
+        function openLightbox(imgSrc) {
+            document.getElementById('lightboxTargetImg').src = imgSrc;
+            document.getElementById('imageLightboxModal').style.display = 'flex';
+        }
+
+        // --- Notice Modal Auto Slider ---
         let currentNotice = 0;
         const noticeSlides = document.querySelectorAll('.notice-slide');
         setInterval(() => {
