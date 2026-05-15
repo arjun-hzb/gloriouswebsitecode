@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infrastructure | Glorious Public School, Maheshra</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --navy: #0a192f;
+            --gold: #ffeb3b; 
+            --dark-gold: #fbc02d;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Montserrat', sans-serif; background-color: #f8f9fa; color: #333; }
+
+        /* --- Header --- */
+        .main-header {
+            background: #fff;
+            padding: 15px 8%;
+            display: flex;
+            align-items: center;
+            border-bottom: 3px solid var(--gold);
+        }
+        .logo-img { width: 80px; height: auto; margin-right: 20px; }
+        .title-area h1 { font-family: 'Cinzel', serif; font-size: 22px; color: var(--navy); }
+        .title-area p { font-size: 12px; letter-spacing: 1px; color: #666; font-weight: 600; }
+
+        /* --- Back Button Navigation --- */
+        .nav-bar {
+            background: #fff;
+            padding: 15px 8%;
+            display: flex;
+            justify-content: flex-start;
+            border-bottom: 1px solid #eee;
+        }
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 20px;
+            background: var(--navy);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 14px;
+            transition: 0.3s ease;
+        }
+        .btn-back:hover { background: var(--gold); color: var(--navy); transform: translateX(-5px); }
+
+        /* --- Hero Section with Background Photos --- */
+        .hero {
+            position: relative;
+            height: 450px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .slideshow-container {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            background: #000;
+        }
+
+        .slide {
+            position: absolute;
+            width: 100%; height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            animation: imageAnimation 15s linear infinite;
+        }
+
+        /* Hero Slideshow Images */
+        .slide:nth-child(1) { 
+            background-image: linear-gradient(rgba(10,25,47,0.65), rgba(10,25,47,0.65)), url('https://www.gloriouspublicschool.com/gallery/building.png'); 
+            animation-delay: 0s;
+        }
+        .slide:nth-child(2) { 
+            background-image: linear-gradient(rgba(10,25,47,0.65), rgba(10,25,47,0.65)), url('https://www.gloriouspublicschool.com/gallery/office.png'); 
+            animation-delay: 5s;
+        }
+        .slide:nth-child(3) { 
+            background-image: linear-gradient(rgba(10,25,47,0.65), rgba(10,25,47,0.65)), url('https://www.gloriouspublicschool.com/gallery/smartclass1.png'); 
+            animation-delay: 10s;
+        }
+
+        @keyframes imageAnimation {
+            0% { opacity: 0; transform: scale(1.1); }
+            10% { opacity: 1; transform: scale(1); }
+            33% { opacity: 1; }
+            43% { opacity: 0; }
+            100% { opacity: 0; }
+        }
+
+        .hero h2 { font-family: 'Cinzel', serif; font-size: 38px; margin-bottom: 15px; letter-spacing: 2px; }
+        .hero .accent-line { width: 70px; height: 4px; background: var(--gold); margin: 0 auto 20px; }
+        .hero p { font-size: 18px; max-width: 600px; margin: 0 auto; opacity: 0.9; }
+
+        /* --- Infrastructure Content --- */
+        .container { padding: 60px 10%; }
+        
+        .feature-box {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 50px;
+            margin-bottom: 60px; align-items: center; background: white;
+            padding: 40px; border-radius: 25px; box-shadow: 0 10px 40px rgba(0,0,0,0.04);
+        }
+
+        /* Alternating layout */
+        .feature-box:nth-child(even) { direction: rtl; }
+        .feature-box:nth-child(even) .text-content { direction: ltr; }
+
+        .icon-visual {
+            height: 300px; border-radius: 20px;
+            overflow: hidden; border: 1px solid #eee;
+        }
+        .icon-visual img { width: 100%; height: 100%; object-fit: cover; }
+
+        .text-content h3 { 
+            font-family: 'Cinzel', serif; font-size: 26px; color: var(--navy); 
+            margin-bottom: 20px; display: flex; align-items: center; gap: 12px;
+        }
+        .text-content h3::before { content: ''; width: 10px; height: 10px; background: var(--gold); border-radius: 2px; transform: rotate(45deg); display: inline-block; }
+        .text-content p { font-size: 16px; line-height: 1.8; color: #555; }
+
+        /* --- Stats Strip --- */
+        .stats-strip {
+            background: var(--gold); padding: 50px 10%;
+            display: flex; justify-content: space-around; text-align: center;
+        }
+        .stat-item h4 { font-size: 35px; color: var(--navy); font-weight: 800; }
+        .stat-item p { font-size: 13px; text-transform: uppercase; letter-spacing: 1px; color: var(--navy); font-weight: 700; }
+
+        /* --- Footer --- */
+        footer { 
+            background: var(--navy); color: white; 
+            padding: 70px 10% 40px; text-align: center; 
+            border-top: 6px solid var(--gold); 
+        }
+        .footer-copyright { font-size: 16px; margin-bottom: 30px; opacity: 0.9; }
+        .footer-copyright a { color: var(--gold); text-decoration: none; font-weight: 600; }
+
+        .dev-branding {
+            margin-top: 40px; padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        .dev-name {
+            font-size: 20px; font-weight: 700; text-decoration: none; display: inline-block;
+            background: linear-gradient(90deg, #ffeb3b, #ffffff, #ffeb3b); background-size: 200% auto;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
+            animation: shine 4s linear infinite;
+        }
+        @keyframes shine { to { background-position: 200% center; } }
+
+        /* --- MODERN SOCIAL FLOAT (Matching Index Style) --- */
+        .social-float { 
+            position: fixed; 
+            right: 25px; 
+            bottom: 30px; 
+            display: flex; 
+            flex-direction: column; 
+            gap: 15px; 
+            z-index: 2000; 
+        }
+        .social-btn { 
+            width: 55px; 
+            height: 55px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            color: white; 
+            border-radius: 18px; 
+            text-decoration: none; 
+            font-size: 24px; 
+            background: rgba(10, 25, 47, 0.2); 
+            backdrop-filter: blur(10px); 
+            border: 1px solid rgba(255, 255, 255, 0.3); 
+            box-shadow: 0 8px 32px rgba(0,0,0,0.15); 
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            position: relative;
+        }
+        .insta:hover { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); transform: scale(1.2) rotate(8deg); }
+        .yt:hover { background: #FF0000; transform: scale(1.2) rotate(-8deg); }
+        .fb:hover { background: #1877F2; transform: scale(1.2) rotate(8deg); }
+        .wa:hover { background: #25D366; transform: scale(1.2) rotate(-8deg); }
+
+        .social-btn::before {
+            content: attr(data-name); position: absolute; right: 70px; background: var(--navy); color: white;
+            padding: 5px 12px; border-radius: 5px; font-size: 12px; opacity: 0; transition: 0.3s; white-space: nowrap;
+            pointer-events: none;
+        }
+        .social-btn:hover::before { opacity: 1; right: 75px; }
+
+        @media (max-width: 768px) {
+            .feature-box { grid-template-columns: 1fr; padding: 25px; gap: 20px; }
+            .hero h2 { font-size: 28px; }
+            .stats-strip { flex-wrap: wrap; gap: 30px; }
+            .social-float { bottom: 20px; right: 15px; }
+            .social-btn { width: 48px; height: 48px; font-size: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="main-header">
+        <img src="https://www.gloriouspublicschool.com/gallery/logo.png" alt="School Logo" class="logo-img">
+        <div class="title-area">
+            <h1>Glorious Public School</h1>
+            <p>MAHESHRA, HAZARIBAGH, JHARKHAND</p>
+        </div>
+    </header>
+
+    <!-- Back Button Section -->
+    <nav class="nav-bar">
+        <a href="index.html" class="btn-back">
+            <i class="fas fa-arrow-left"></i> Back to Home
+        </a>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="hero">
+        <div class="slideshow-container">
+            <div class="slide"></div>
+            <div class="slide"></div>
+            <div class="slide"></div>
+        </div>
+        <h2>Campus Infrastructure</h2>
+        <div class="accent-line"></div>
+        <p>Providing a world-class environment for the leaders of tomorrow.</p>
+    </div>
+
+    <!-- Main Content Sections -->
+    <div class="container">
+        <!-- 1. Smart Classrooms -->
+        <div class="feature-box">
+            <div class="icon-visual">
+                <img src="https://www.gloriouspublicschool.com/gallery/smartclass1.png" alt="Smart Classrooms">
+            </div>
+            <div class="text-content">
+                <h3>Smart Classrooms</h3>
+                <p>Our academic blocks are equipped with digitized learning tools. High-speed internet connectivity and interactive smart boards ensure that our students engage with a curriculum that is both visually stimulating and technologically advanced.</p>
+            </div>
+        </div>
+
+        <!-- 2. Modern Laboratories -->
+        <div class="feature-box">
+            <div class="icon-visual">
+                <img src="https://www.gloriouspublicschool.com/gallery/schhool lab.png" alt="Modern Laboratories">
+            </div>
+            <div class="text-content">
+                <h3>Modern Laboratories</h3>
+                <p>To foster a spirit of inquiry, GPS Maheshra provides specialized labs for Physics, Chemistry, and Biology. Our facilities are designed to meet international safety standards while providing the best equipment for practical research.</p>
+            </div>
+        </div>
+
+        <!-- 3. Resource Center (Library) -->
+        <div class="feature-box">
+            <div class="icon-visual">
+                <img src="https://www.gloriouspublicschool.com/gallery/library.png" alt="Resource Center">
+            </div>
+            <div class="text-content">
+                <h3>Resource Center</h3>
+                <p>The library serves as the intellectual heart of our school. With an extensive collection of over 5,000 volumes, academic journals, and a dedicated digital e-learning corner, we provide a peaceful environment for deep study.</p>
+            </div>
+        </div>
+
+        <!-- 4. Safe Commute (Transport) -->
+        <div class="feature-box">
+            <div class="icon-visual">
+                <img src="https://www.gloriouspublicschool.com/gallery/safe.png" alt="Safe Commute">
+            </div>
+            <div class="text-content">
+                <h3>Safe Commute</h3>
+                <p>Student safety is our highest priority. Our transport fleet is managed by experienced drivers and monitored via GPS tracking. Every bus follows strict security protocols to ensure a safe journey across Hazaribagh.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stats Strip -->
+    <div class="stats-strip">
+        <div class="stat-item"><h4>20+</h4><p>Digital Rooms</p></div>
+        <div class="stat-item"><h4>04</h4><p>Science Hubs</p></div>
+        <div class="stat-item"><h4>100%</h4><p>CCTV Secured</p></div>
+        <div class="stat-item"><h4>5000+</h4><p>Books</p></div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p class="footer-copyright">
+            &copy; 2026 <strong>Glorious Public School, Hazaribag</strong> | <a href="contact.html">Contact Us</a>
+        </p>
+        
+        <div class="dev-branding">
+            <p style="font-size: 14px; color: #94a3b8; margin-bottom: 12px;">Managed & Contact for Web Development</p>
+            <a href="https://www.instagram.com/your__ri0" target="_blank" class="dev-name">Developed by Arjun</a>
+        </div>
+    </footer>
+
+    <!-- SOCIAL FLOAT (Floating on the right side) -->
+    <div class="social-float">
+        <a href="https://wa.link/48bjbp" class="social-btn wa" data-name="WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+        <a href="https://www.facebook.com/share/1CGbYGJvvP/" class="social-btn fb" data-name="Facebook">
+            <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="https://youtube.com/@gps-maheshra" class="social-btn yt" data-name="YouTube">
+            <i class="fab fa-youtube"></i>
+        </a>
+        <a href="https://www.instagram.com/gpsmaheshra" class="social-btn insta" data-name="Instagram">
+            <i class="fab fa-instagram"></i>
+        </a>
+    </div>
+
+</body>
+</html>
