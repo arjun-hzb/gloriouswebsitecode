@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glorious Public School, Maheshra, Hazaribag | GPS Mahesra</title>
+
+    <!-- Favicon Add Kiya Gaya Hai -->
+    <link rel="icon" type="image/png" href="https://www.gloriouspublicschool.com/gallery/logo.png">
+    
+    <!-- Optimized Professional Description for 1st Rank -->
+    <meta name="description" content="Glorious Public School (GPS), Maheshra, Hazaribag – The best co-educational school in Hazaribagh providing quality education since 1999. Smart classes, hostel facilities for boys & girls, and 25+ years of excellence. Admissions Open for 2026-27.">
+
+    <!-- SEO Keywords Optimization -->
+    <meta name="keywords" content="Glorious Public School Maheshra, GPS Mahesra Hazaribag, GPS Hazaribagh, Best School in Hazaribagh, Top rated school Maheshra, GPS School Hazaribag admission, Glorious Public School contact, schools in Hazaribagh Jharkhand, Maheshra Hazaribagh school list">
+    <meta name="author" content="Glorious Public School">
+    <meta name="robots" content="index, follow">
+
+    <!-- Google Search Console/Schema Markup for Ranking -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "EducationalOrganization",
+      "name": "Glorious Public School",
+      "url": "https://www.gloriouspublicschool.com",
+      "logo": "https://www.gloriouspublicschool.com/gallery/logo.png",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Hazaribag",
+        "addressRegion": "JH",
+        "addressCountry": "IN"
+      },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+91-9430708913",
+        "contactType": "Enquiry"
+      }
+    }
+    </script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Cinzel:wght@700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background-color: #ffffff; color: #333; overflow-x: hidden; }
+
+        /* --- Header --- */
+        header { display: flex; align-items: center; padding: 15px 5%; background: #fff; border-bottom: 2px solid #f0f0f0; position: sticky; top: 0; z-index: 1000; justify-content: space-between; }
+        .header-left { display: flex; align-items: center; }
+        .logo { width: 80px; height: auto; margin-right: 20px; transition: 0.5s; }
+        .logo:hover { transform: rotate(360deg); }
+        .school-title h1 { font-size: 24px; color: #1a237e; text-transform: uppercase; }
+        .school-title p { font-size: 14px; color: #555; }
+
+        .header-right { text-align: right; }
+        .co-edu { display: block; font-weight: 600; color: #d32f2f; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; }
+        .call-now { 
+            display: inline-block; background: #1a237e; color: white; padding: 6px 15px; 
+            border-radius: 50px; text-decoration: none; font-weight: 600; margin-top: 5px;
+            font-size: 14px; transition: 0.3s; border: 2px solid transparent;
+        }
+        .call-now:hover { background: #fff; color: #1a237e; border-color: #1a237e; }
+        .call-now i { margin-right: 5px; }
+
+        /* --- Navigation --- */
+        nav { background: #1a237e; padding: 10px; text-align: center; overflow-x: auto; white-space: nowrap; }
+        nav a { color: white; text-decoration: none; margin: 0 15px; font-weight: 500; font-size: 14px; position: relative; padding-bottom: 5px; }
+        nav a::after { content: ''; position: absolute; width: 0; height: 2px; background: #ffd700; bottom: 0; left: 0; transition: 0.3s; }
+        nav a:hover::after { width: 100%; }
+ 
+        /* --- Top Notice --- */
+        .top-notice { background: #ffeb3b; padding: 5px 0; border-bottom: 1px solid #ddd; }
+        marquee { font-weight: 600; color: #d32f2f; }
+
+        /* --- Slider --- */
+        .slider { width: 100%; height: 450px; position: relative; overflow: hidden; background: #eee; }
+        .slider img { width: 100%; height: 100%; object-fit: cover; display: none; animation: zoomEffect 1.5s ease-out; }
+        .slider img.active { display: block; }
+        @keyframes zoomEffect { from { transform: scale(1.2); opacity: 0.1; } to { transform: scale(1); opacity: 1; } }
+        @media (max-width: 768px) { .slider { height: 250px; } }
+
+        /* --- Quick Links --- */
+        .updates-container { display: flex; justify-content: space-around; padding: 20px; background: #f9f9f9; text-align: center; flex-wrap: wrap; gap: 10px; }
+        
+        .update-box { padding: 15px; border-radius: 8px; background: white; box-shadow: 0 4px 6px rgba(0,0,0,0.1); width: 22%; min-width: 150px; text-decoration: none; color: inherit; transition: 0.3s; animation: pulse 2s infinite; height: 55px; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+        .update-box:hover { background: #1a237e; color: white !important; transform: translateY(-5px); }
+        
+        .slide-content { position: absolute; width: 100%; text-align: center; transition: 0.5s ease-in-out; opacity: 0; transform: translateY(20px); font-weight: 600; }
+        .slide-content.active { opacity: 1; transform: translateY(0); }
+
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.03); } }
+
+        /* --- Layout Sections --- */
+        section { padding: 60px 10%; line-height: 1.6; }
+        .section-title { font-size: 28px; border-bottom: 3px solid #1a237e; display: inline-block; margin-bottom: 30px; color: #1a237e; font-family: 'Cinzel', serif; }
+        .discover-btn { padding: 10px 25px; background: #1a237e; color: white; border: none; border-radius: 5px; margin-top: 20px; text-decoration: none; display: inline-block; font-weight: 600; transition: 0.4s; box-shadow: 0 4px 15px rgba(26, 35, 126, 0.3); }
+        .discover-btn:hover { background: #ffd700; color: #1a237e; transform: translateY(-5px); }
+
+        .principal-section { background: #f4f4f4; border-radius: 15px; padding: 40px; }
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; }
+        .gallery-grid img { width: 100%; height: 180px; object-fit: cover; border-radius: 5px; transition: 0.5s; cursor: pointer; }
+        .gallery-grid img:hover { transform: scale(1.05); filter: brightness(1.1); }
+
+        /* --- Notice & Exam Modal --- */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); display: none; justify-content: center; align-items: center; z-index: 9999; backdrop-filter: blur(5px); }
+        .modal-content { background: white; padding: 10px; border-radius: 10px; max-width: 500px; width: 90%; animation: slideDown 0.5s ease-out; position: relative; }
+        @keyframes slideDown { from { transform: translateY(-50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        .close-modal { position: absolute; top: -15px; right: -15px; background: #d32f2f; color: white; border-radius: 50%; width: 35px; height: 35px; border: 2px solid white; cursor: pointer; font-weight: bold; display: flex; align-items: center; justify-content: center; z-index: 10001; }
+
+        /* CSS for Notice Image Slider */
+        .notice-slider-container { position: relative; width: 100%; height: auto; overflow: hidden; }
+        .notice-slide { width: 100%; display: none; border-radius: 5px; }
+        .notice-slide.active { display: block; animation: fadeIn 0.8s ease; }
+        @keyframes fadeIn { from { opacity: 0.3; } to { opacity: 1; } }
+
+        /* --- MODERN SOCIAL FLOAT --- */
+        .social-float { position: fixed; right: 25px; bottom: 30px; display: flex; flex-direction: column; gap: 15px; z-index: 2000; }
+        .social-btn { 
+            width: 55px; height: 55px; display: flex; align-items: center; justify-content: center; color: white; border-radius: 18px; 
+            text-decoration: none; font-size: 24px; background: rgba(26, 35, 126, 0.1); backdrop-filter: blur(10px); 
+            border: 1px solid rgba(255, 255, 255, 0.3); box-shadow: 0 8px 32px rgba(0,0,0,0.15); 
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); position: relative;
+        }
+        .insta:hover { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); transform: scale(1.2) rotate(8deg); }
+        .yt:hover { background: #FF0000; transform: scale(1.2) rotate(-8deg); }
+        .fb:hover { background: #1877F2; transform: scale(1.2) rotate(8deg); }
+        .wa:hover { background: #25D366; transform: scale(1.2) rotate(-8deg); }
+
+        .social-btn::before {
+            content: attr(data-name); position: absolute; right: 70px; background: #1a237e; color: white;
+            padding: 5px 12px; border-radius: 5px; font-size: 12px; opacity: 0; transition: 0.3s; white-space: nowrap;
+        }
+        .social-btn:hover::before { opacity: 1; right: 75px; }
+
+        .dev-name {
+            font-size: 18px; font-weight: 600; text-decoration: none; display: inline-block;
+            background: linear-gradient(90deg, #ffd700, #ffffff, #ffd700); background-size: 200% auto;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: shine 3s linear infinite;
+        }
+        @keyframes shine { to { background-position: 200% center; } }
+
+        .award-slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: 1s; }
+        .award-slide.active { opacity: 1; }
+
+        @media (max-width: 600px) {
+            header { flex-direction: column; text-align: center; }
+            .header-left { flex-direction: column; margin-bottom: 10px; }
+            .logo { margin-right: 0; margin-bottom: 10px; }
+            .header-right { text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Updated Notice Pop-up with Auto Slider -->
+    <div id="noticeModal" class="modal-overlay" style="display: flex;">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal('noticeModal')">X</button>
+            <div class="notice-slider-container" id="noticeSlider">
+                <!-- Pehli Image -->
+                <img src="https://www.gloriouspublicschool.com/gallery/examnotice.png" alt="Notice 1" class="notice-slide active">
+                <!-- Dusri Image -->
+                <img src="https://www.gloriouspublicschool.com/gallery/examschedule.png" alt="Notice 2" class="notice-slide">
+                <img src="https://www.gloriouspublicschool.com/gallery/notice.jpg" alt="Notice 3" class="notice-slide">
+            </div>
+        </div>
+    </div>
+
+    <!-- Exam Schedule Pop-up -->
+    <div id="examModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal('examModal')">X</button>
+            <img src="https://www.gloriouspublicschool.com/gallery/examschedule.png" alt="Exam Schedule" style="width: 100%; border-radius: 5px;">
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header data-aos="fade-down">
+        <div class="header-left">
+            <img src="https://www.gloriouspublicschool.com/gallery/logo.png" alt="Glorious Public School Logo" class="logo">
+            <div class="school-title">
+                <h1>Glorious Public School</h1>
+                <p>Maheshra, Hazaribag, Jharkhand</p>
+            </div>
+        </div>
+        <div class="header-right">
+            <span class="co-edu">Co-Education</span>
+            <a href="tel:9430708913" class="call-now"><i class="fas fa-phone-alt"></i> 94307 08913</a>
+        </div>
+    </header>
+
+    <div class="top-notice">
+        <marquee> Free Admission Open for Session 2026-27 | Separate Boys and Girls Hostels | Office Hours:- 7am to 5pm Monday to Sunday</marquee>
+    </div>
+
+    <nav data-aos="fade-up">
+        <a href="index.html">Home</a>
+        <a href="about.html">About Us</a>
+        <a href="academic.html">Academic</a>
+        <a href="admission.html">Admission</a>
+        <a href="fee.html">Online Fee</a>
+        <a href="infrastructure.html" target="_blank">Infrastructure</a>
+        <a href="result.html">Results</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="contact.html">Contact Us</a>
+    </nav>
+
+    <!-- Slider -->
+    <div class="slider" id="mainSlider">
+        <img src="https://www.gloriouspublicschool.com/gallery/building.png" class="active" alt="GPS School Building">
+        <img src="https://www.gloriouspublicschool.com/gallery/office.png" alt="GPS School Office">
+    </div>
+
+    <!-- Quick Links -->
+    <div class="updates-container" data-aos="fade-up">
+        <div class="update-box" style="border-left: 5px solid red;" id="textSlider">
+            <div class="slide-content active">Important Updates</div>
+            <div class="slide-content">FA1 Exam: 18 May</div>
+        </div>
+        <a href="fee.html" class="update-box" style="border-left: 5px solid blue;">Online Fee Pay</a>
+        
+        <div onclick="openExamModal()" class="update-box" style="border-left: 5px solid green;">Exam Schedule</div>
+        
+        <div class="update-box" style="border-left: 5px solid orange;">Latest News</div>
+    </div>
+
+    <!-- ABOUT SECTION -->
+    <section id="about">
+        <h2 class="section-title" data-aos="fade-right">About Our School</h2>
+        <div style="display: flex; align-items: center; gap: 40px; flex-wrap: wrap;">
+            
+            <div style="flex: 1; min-width: 300px;" data-aos="zoom-in">
+                <div style="position: relative; padding: 10px; border: 2px solid #ffeb3b; border-radius: 15px;">
+                    <img src="https://www.gloriouspublicschool.com/gallery/building.png" alt="Glorious Public School Hazaribagh" style="width: 100%; height: auto; border-radius: 10px; display: block;">
+                    <div style="position: absolute; top: -15px; left: -15px; background: #1a237e; color: #fff; padding: 15px; border-radius: 50%; text-align: center; width: 95px; height: 95px; display: flex; flex-direction: column; justify-content: center; border: 3px solid #ffeb3b; z-index: 10;">
+                        <span style="font-size: 11px; font-weight: bold; text-transform: uppercase;">Since</span>
+                        <span style="font-size: 22px; font-weight: bold; color: #ffeb3b;">1999</span>
+                    </div>
+                </div>
+            </div>
+
+            <div style="flex: 1.2; min-width: 300px;" data-aos="fade-left">
+                <h3 style="font-size: 24px; color: #1a237e; margin-bottom: 15px;">25+ Years of Academic Excellence</h3>
+                <p style="color: #444; margin-bottom: 20px;">
+                    Established in <strong>1999</strong>, Glorious Public School has been a cornerstone of quality education in Hazaribagh for over two decades. We offer a comprehensive learning journey from <strong>Nursery to Class 10th</strong>, ensuring a strong foundation for every student.
+                </p>
+                <p style="color: #555; margin-bottom: 25px;">
+                    Our campus features <strong>Smart Classrooms</strong> for digital learning and offers <strong>separate hostel facilities for Boys and Girls</strong>, providing a safe and disciplined residential experience.
+                </p>
+
+                <ul style="list-style: none; padding: 0; margin-bottom: 30px; display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <li style="font-size: 14px; font-weight: 600; color: #1a237e;"><i class="fas fa-desktop" style="color: #fbc02d; margin-right: 8px;"></i> Smart Classes</li>
+                    <li style="font-size: 14px; font-weight: 600; color: #1a237e;"><i class="fas fa-bed" style="color: #fbc02d; margin-right: 8px;"></i> Secure Hostels</li>
+                    <li style="font-size: 14px; font-weight: 600; color: #1a237e;"><i class="fas fa-bus" style="color: #fbc02d; margin-right: 8px;"></i> Transport  Facility</li>
+                    <li style="font-size: 14px; font-weight: 600; color: #1a237e;"><i class="fas fa-vial" style="color: #fbc02d; margin-right: 8px;"></i> Science Labs</li>
+                </ul>
+
+                <a href="about.html" class="discover-btn">Discover More</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Principal Section -->
+    <section class="principal-section" data-aos="fade-up">
+        <div style="display: flex; align-items: flex-start; gap: 30px; flex-wrap: wrap;">
+            
+            <div style="flex: 0 0 180px; text-align: center;" data-aos="zoom-in">
+                <img src="https://www.gloriouspublicschool.com/gallery/principal.png" alt="GPS Hazaribagh Principal" 
+                     style="width: 100%; max-width: 180px; border-radius: 12px; border: 3px solid #1a237e; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+            </div>
+
+            <div style="flex: 1; min-width: 300px;">
+                <h2 class="section-title">Principal's Message</h2>
+                <p style="font-style: italic; color: #1a237e; font-weight: 600; margin-bottom: 20px; border-left: 4px solid #ffd700; padding-left: 15px;">
+                    "The goal of education is the advancement of knowledge and the dissemination of truth."
+                </p>
+                
+                <p style="margin-bottom: 15px;">It is with great pride and a sense of profound responsibility that I welcome you to <strong>Glorious Public School, Maheshra, Hazaribagh</strong>. As we navigate through an era of rapid global change, our institution stands as a beacon of academic excellence and character building, dedicated to nurturing the leaders of tomorrow.</p>
+
+                <h4 style="color: #1a237e; margin: 20px 0 10px;">Our Educational Philosophy</h4>
+                <p style="margin-bottom: 15px;">At Glorious Public School, we believe that education is not merely the acquisition of degrees but a lifelong journey of self-discovery. Our curriculum is meticulously designed to balance academic rigour with creative exploration.</p>
+
+                <p style="margin-top: 25px; font-weight: 600; color: #1a237e;">
+                    With Warm Regards,<br>
+                    <span style="font-size: 18px;">[Renu Kumari]</span><br>
+                    Principal, Glorious Public School<br>
+                    Maheshra, Hazaribagh, Jharkhand
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Awards Section -->
+    <section id="awards">
+        <h2 class="section-title" data-aos="fade-right">Awards & Recognition</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+            <img src="https://www.gloriouspublicschool.com/gallery/award.png" alt="Award 1" style="height: 250px; width: 100%; object-fit: cover; border-radius: 10px;" data-aos="flip-left">
+            <img src="https://www.gloriouspublicschool.com/gallery/award2.png" alt="Award 2" style="height: 250px; width: 100%; object-fit: cover; border-radius: 10px;" data-aos="flip-left" data-aos-delay="200">
+            <div id="awardSlider" style="height: 250px; position: relative; border-radius: 10px; overflow: hidden; border: 3px solid #ffd700;" data-aos="flip-left" data-aos-delay="400">
+                <img src="https://www.gloriouspublicschool.com/gallery/award.png" class="award-slide active" alt="Slide Award">
+                <img src="https://www.gloriouspublicschool.com/gallery/news.png" class="award-slide" alt="News Recognition">
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery -->
+    <section>
+        <h2 class="section-title" data-aos="fade-right">Photo Gallery</h2>
+        <div class="gallery-grid">
+            <img src="https://www.gloriouspublicschool.com/gallery/building.png" data-aos="zoom-in" alt="Gallery 1">
+            <img src="https://www.gloriouspublicschool.com/gallery/office.png" data-aos="zoom-in" data-aos-delay="100" alt="Gallery 2">
+            <img src="https://www.gloriouspublicschool.com/gallery/student.png" data-aos="zoom-in" data-aos-delay="200" alt="Gallery 3">
+            <img src="https://www.gloriouspublicschool.com/gallery/smartclass1.png" data-aos="zoom-in" data-aos-delay="300" alt="Gallery 4">
+        </div>
+        <center><a href="gallery.html" class="discover-btn" style="margin-top: 40px;">View All Photos</a></center>
+    </section>
+
+    <!-- SOCIAL FLOAT -->
+    <div class="social-float">
+        <a href="https://wa.link/48bjbp" class="social-btn wa" data-name="WhatsApp" data-aos="fade-left" data-aos-delay="100">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+        <a href="https://www.facebook.com/share/1CGbYGJvvP/" class="social-btn fb" data-name="Facebook" data-aos="fade-left" data-aos-delay="200">
+            <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="https://youtube.com/@gps-maheshra" class="social-btn yt" data-name="YouTube" data-aos="fade-left" data-aos-delay="300">
+            <i class="fab fa-youtube"></i>
+        </a>
+        <a href="https://www.instagram.com/gpsmaheshra" class="social-btn insta" data-name="Instagram" data-aos="fade-left" data-aos-delay="400">
+            <i class="fab fa-instagram"></i>
+        </a>
+    </div>
+
+    <!-- Footer -->
+    <footer style="background: #1a237e; color: white; padding: 40px 10%; text-align: center; border-top: 4px solid #ffd700;">
+        <p>&copy; 2026 Glorious Public School, Hazaribag | <a href="contact.html" style="color: #ffd700;">Contact Us</a></p>
+        <div style="margin-top: 25px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1);">
+            <p style="font-size: 13px; color: #aaa;">Managed & Contact for Web Development</p>
+            <a href="https://www.instagram.com/your__ri0" target="_blank" class="dev-name">Developed by Arjun</a>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 1000, once: true });
+
+        function closeModal(modalId) { 
+            document.getElementById(modalId).style.display = 'none'; 
+        }
+
+        function openExamModal() {
+            document.getElementById('examModal').style.display = 'flex';
+        }
+
+        // --- New: Notice Modal Auto Slider ---
+        let currentNotice = 0;
+        const noticeSlides = document.querySelectorAll('.notice-slide');
+        setInterval(() => {
+            if(noticeSlides.length > 0){
+                noticeSlides[currentNotice].classList.remove('active');
+                currentNotice = (currentNotice + 1) % noticeSlides.length;
+                noticeSlides[currentNotice].classList.add('active');
+            }
+        }, 3000);
+
+        // Main Slider
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('#mainSlider img');
+        setInterval(() => {
+            if(slides.length > 0){
+                slides[currentSlide].classList.remove('active');
+                currentSlide = (currentSlide + 1) % slides.length;
+                slides[currentSlide].classList.add('active');
+            }
+        }, 3000);
+
+        // Award Slider
+        let currentAward = 0;
+        const awardImg = document.querySelectorAll('#awardSlider .award-slide');
+        setInterval(() => {
+            if(awardImg.length > 0){
+                awardImg[currentAward].classList.remove('active');
+                currentAward = (currentAward + 1) % awardImg.length;
+                awardImg[currentAward].classList.add('active');
+            }
+        }, 3500);
+
+        // Text Slider for Important Update Box
+        let currentText = 0;
+        const textSlides = document.querySelectorAll('#textSlider .slide-content');
+        setInterval(() => {
+            if(textSlides.length > 0){
+                textSlides[currentText].classList.remove('active');
+                currentText = (currentText + 1) % textSlides.length;
+                textSlides[currentText].classList.add('active');
+            }
+        }, 2500);
+    </script>
+</body>
+</html>
