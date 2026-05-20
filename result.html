@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coming Soon</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #090d16;
+            color: #ffffff;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            padding: 20px;
+        }
+
+        /* Ambient subtle background glow */
+        body::before {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(37, 99, 235, 0.15) 0%, transparent 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 0;
+        }
+
+        .content-wrapper {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+
+        /* Coming Soon Headline */
+        h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            letter-spacing: 8px;
+            text-transform: uppercase;
+            background: linear-gradient(180deg, #ffffff 0%, #94a3b8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 40px;
+            line-height: 1.1;
+        }
+
+        /* Countdown Container */
+        .timer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .time-box {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 25px 20px;
+            border-radius: 20px;
+            min-width: 110px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .number {
+            font-size: 3rem;
+            font-weight: 600;
+            color: #ffffff;
+            line-height: 1;
+            margin-bottom: 6px;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .label {
+            font-size: 0.75rem;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+        }
+
+        /* Responsive scaling */
+        @media (max-width: 600px) {
+            h1 { font-size: 2.5rem; letter-spacing: 4px; margin-bottom: 30px; }
+            .timer-grid { gap: 12px; }
+            .time-box { padding: 15px 10px; min-width: 75px; border-radius: 14px; }
+            .number { font-size: 1.8rem; }
+            .label { font-size: 0.65rem; letter-spacing: 1px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="content-wrapper">
+        <!-- Main Tag -->
+        <h1>Coming Soon</h1>
+
+        <!-- Countdown Row -->
+        <div class="timer-grid">
+            <div class="time-box">
+                <div id="days" class="number">00</div>
+                <div class="label">Days</div>
+            </div>
+            <div class="time-box">
+                <div id="hours" class="number">00</div>
+                <div class="label">Hours</div>
+            </div>
+            <div class="time-box">
+                <div id="minutes" class="number">00</div>
+                <div class="label">Mins</div>
+            </div>
+            <div class="time-box">
+                <div id="seconds" class="number">00</div>
+                <div class="label">Secs</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Yahan par apni target date aur time set karo
+        // Format: YYYY-MM-DDTHH:MM:SS
+        const targetDate = new Date("2026-05-25T00:00:00").getTime();
+
+        function startCountdown() {
+            const now = new Date().getTime();
+            const gap = targetDate - now;
+
+            // Agar countdown khatam ho jaye
+            if (gap <= 0) {
+                document.querySelector('.timer-grid').innerHTML = "<div style='grid-column: span 4; color: #3b82f6; font-weight: 600; font-size: 1.5rem; letter-spacing: 2px;'>WE ARE LIVE!</div>";
+                return;
+            }
+
+            // Time math calculation
+            const second = 1000;
+            const minute = second * 60;
+            const hour = minute * 60;
+            const day = hour * 24;
+
+            const d = Math.floor(gap / day);
+            const h = Math.floor((gap % day) / hour);
+            const m = Math.floor((gap % hour) / minute);
+            const s = Math.floor((gap % minute) / second);
+
+            // Output update with padding zero (e.g. '05' instead of '5')
+            document.getElementById('days').innerText = String(d).padStart(2, '0');
+            document.getElementById('hours').innerText = String(h).padStart(2, '0');
+            document.getElementById('minutes').innerText = String(m).padStart(2, '0');
+            document.getElementById('seconds').innerText = String(s).padStart(2, '0');
+        }
+
+        // Loop interval trigger
+        setInterval(startCountdown, 1000);
+        startCountdown(); // Instant run on load
+    </script>
+
+</body>
+</html>
