@@ -84,7 +84,7 @@
             padding: 14px; border: 2px solid #eee; border-radius: 12px; outline: none; 
             font-size: 15px; transition: 0.3s;
         }
-        input:focus, select:focus { border-color: var(--primary); background: #fcfcfc; }
+        input:focus, select:focus, textarea:focus { border-color: var(--primary); background: #fcfcfc; }
 
         .submit-btn {
             width: 100%; padding: 16px; background: var(--primary); color: white;
@@ -172,17 +172,31 @@
                 <div class="grid-row">
                     <div class="input-group"><label>Father's Name *</label><input type="text" name="father_name" placeholder="Enter father's name" required></div>
                     <div class="input-group">
-                        <label>WhatsApp Number *</label>
-                        <input type="tel" name="phone" placeholder="10-digit mobile number" 
+                        <label>Father's Mobile No. *</label>
+                        <input type="tel" name="father_phone" placeholder="10-digit mobile number" 
                                pattern="[0-9]{10}" maxlength="10" 
                                oninput="this.value = this.value.replace(/[^0-9]/g, '');" required>
                     </div>
                 </div>
+                <div class="grid-row">
+                    <div class="input-group">
+                        <label>Mother's Mobile No.</label>
+                        <input type="tel" name="mother_phone" placeholder="10-digit mobile number" 
+                               pattern="[0-9]{10}" maxlength="10" 
+                               oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                    </div>
+                </div>
+
+                <div class="section-title"><i class="fas fa-map-marker-alt"></i> Address Details</div>
+                <div class="input-group" style="margin-bottom: 15px;">
+                    <label>Full Address *</label>
+                    <textarea name="full_address" rows="3" placeholder="Enter complete residential address" style="resize: vertical;" required></textarea>
+                </div>
 
                 <div class="section-title"><i class="fas fa-hotel"></i> Hostel Facility</div>
                 <select name="hostel_type" style="width: 100%;" required>
-                    <option value="Non-Hostel">Non-Hostel (Day Scholar)</option>
-                    <option value="Hostel">Hostel (Residential)</option>
+                    <option value="Day Scholar">Non-Hostel (Day Scholar)</option>
+                    <option value="Hosteller">Hostel (Residential)</option>
                 </select>
 
                 <button type="submit" class="submit-btn">Submit Application</button>
