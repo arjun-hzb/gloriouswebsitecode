@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    
     <style>
         :root {
             --primary: #1a237e;
@@ -50,7 +52,7 @@
         }
         .btn-back:hover { background: var(--accent); color: var(--primary); transform: translateX(-5px); }
 
-        .form-wrapper { padding: 30px 20px 60px; display: flex; justify-content: center; align-items: center; flex-direction: column; }
+        .form-wrapper { padding: 30px 20px 60px; display: flex; justify-content: center; align-items: center; flex-direction: column; min-height: 70vh; }
 
         /* Container Styling */
         .form-container, .success-card {
@@ -60,9 +62,15 @@
             padding: 40px;
             border-radius: 30px;
             box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+            transition: all 0.5s ease-in-out;
         }
 
-        #success-message { display: none; text-align: center; max-width: 500px; }
+        /* Hide logic with smooth transition templates */
+        .hidden-box {
+            display: none !important;
+        }
+
+        #success-message { text-align: center; max-width: 500px; }
 
         .form-header { text-align: center; margin-bottom: 30px; }
         .form-header h2 { color: var(--primary); font-size: 32px; font-weight: 800; text-transform: uppercase; }
@@ -90,8 +98,10 @@
             width: 100%; padding: 16px; background: var(--primary); color: white;
             border: none; border-radius: 15px; font-size: 18px; font-weight: 700;
             cursor: pointer; margin-top: 25px; transition: 0.4s;
+            display: flex; justify-content: center; align-items: center; gap: 10px;
         }
         .submit-btn:hover { background: var(--accent); color: var(--primary); transform: translateY(-3px); }
+        .submit-btn:disabled { background: #888; cursor: not-allowed; transform: none; }
 
         .whatsapp-btn {
             display: flex; align-items: center; justify-content: center; gap: 10px;
@@ -101,18 +111,18 @@
         }
         .whatsapp-btn:hover { background: #128C7E; transform: translateY(-2px); }
 
-        /* MODERN SOCIAL FLOAT */
+        /* STICKY SOCIAL FLOAT */
         .social-float { position: fixed; right: 25px; bottom: 30px; display: flex; flex-direction: column; gap: 15px; z-index: 2000; }
         .social-btn { 
-            width: 55px; height: 55px; display: flex; align-items: center; justify-content: center; color: white; border-radius: 18px; 
-            text-decoration: none; font-size: 24px; background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(10px); 
-            border: 1px solid rgba(255, 255, 255, 0.3); box-shadow: 0 8px 32px rgba(0,0,0,0.3); 
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; color: white; border-radius: 15px; 
+            text-decoration: none; font-size: 22px; box-shadow: 0 8px 25px rgba(0,0,0,0.3); 
+            transition: all 0.3s ease;
         }
-        .insta:hover { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); transform: scale(1.1); }
-        .yt:hover { background: #FF0000; transform: scale(1.1); }
-        .fb:hover { background: #1877F2; transform: scale(1.1); }
-        .wa:hover { background: #25D366; transform: scale(1.1); }
+        .wa { background: #25D366; }
+        .fb { background: #1877F2; }
+        .yt { background: #FF0000; }
+        .insta { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
+        .social-btn:hover { transform: scale(1.1) translateY(-2px); box-shadow: 0 10px 20px rgba(0,0,0,0.4); filter: brightness(1.1); }
 
         /* Branding */
         .dev-name {
@@ -122,9 +132,37 @@
         }
         @keyframes shine { to { background-position: 200% center; } }
 
-        @media (max-width: 600px) {
-            .form-container { padding: 25px 20px; }
+        footer {
+            background: var(--primary); color: white; text-align: center; border-top: 4px solid var(--accent); padding: 35px 5%;
+        }
+
+        /* PDF Styling (This layout will be rendered inside the PDF) */
+        .pdf-template {
+            padding: 30px; color: #333; background: #fff; font-family: 'Poppins', sans-serif;
+        }
+        .pdf-table {
+            width: 100%; border-collapse: collapse; margin-top: 20px;
+        }
+        .pdf-table th, .pdf-table td {
+            border: 1px solid #ddd; padding: 12px; text-align: left;
+        }
+        .pdf-table th {
+            background-color: #1a237e; color: white;
+        }
+
+        /* --- MOBILE & TABLET RESPONSIVE FIXES --- */
+        @media (max-width: 650px) {
+            nav { padding: 12px; gap: 15px; flex-wrap: wrap; }
+            nav a { font-size: 13px; }
+            .back-nav { margin: 15px auto 0; }
+            .form-wrapper { padding: 15px 10px 40px; }
+            .form-container { padding: 25px 15px; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.3); }
             .form-header h2 { font-size: 24px; }
+            .form-header p { font-size: 14px; }
+            .section-title { font-size: 15px; padding: 10px; }
+            input, select, textarea { padding: 12px; font-size: 14px; border-radius: 10px; }
+            .submit-btn { padding: 14px; font-size: 16px; border-radius: 12px; }
+            .social-float { display: none; }
         }
     </style>
 </head>
@@ -137,7 +175,6 @@
         <a href="contact.html">Contact</a>
     </nav>
 
-    <!-- BACK BUTTON -->
     <div class="back-nav">
         <a href="index.html" class="btn-back animate__animated animate__fadeInLeft">
             <i class="fas fa-arrow-left"></i> Back to Home
@@ -145,19 +182,18 @@
     </div>
 
     <div class="form-wrapper">
-        <!-- ADMISSION FORM SECTION -->
-        <div class="form-container animate__animated animate__fadeInUp" id="admission-form-box">
+        <div class="form-container animate__animated" id="admission-form-box">
             <div class="form-header">
                 <h2>Admission Form</h2>
                 <p style="font-weight: 600; color: #666;">Glorious Public School | Session 2026-27</p>
             </div>
 
-            <form id="admissionForm" action="send_admission.php" method="POST">
+            <form id="admissionForm">
                 <div class="section-title"><i class="fas fa-user-graduate"></i> Student Details</div>
                 <div class="grid-row">
-                    <div class="input-group"><label>Full Name *</label><input type="text" name="student_name" placeholder="Enter student name" required></div>
+                    <div class="input-group"><label>Full Name *</label><input type="text" name="student_name" id="pdf_name" placeholder="Enter student name" required></div>
                     <div class="input-group"><label>Class (Admission)*</label>
-                        <select name="class" required>
+                        <select name="class" id="pdf_class" required>
                             <option value="">Choose Class</option>
                             <option>Nursery</option><option>LKG</option><option>UKG</option>
                             <option>Std 1</option><option>Std 2</option><option>Std 3</option>
@@ -170,10 +206,10 @@
 
                 <div class="section-title"><i class="fas fa-users"></i> Parent Details</div>
                 <div class="grid-row">
-                    <div class="input-group"><label>Father's Name *</label><input type="text" name="father_name" placeholder="Enter father's name" required></div>
+                    <div class="input-group"><label>Father's Name *</label><input type="text" name="father_name" id="pdf_father" placeholder="Enter father's name" required></div>
                     <div class="input-group">
                         <label>Father's Mobile No. *</label>
-                        <input type="tel" name="father_phone" placeholder="10-digit mobile number" 
+                        <input type="tel" name="father_phone" id="pdf_phone" placeholder="10-digit mobile number" 
                                pattern="[0-9]{10}" maxlength="10" 
                                oninput="this.value = this.value.replace(/[^0-9]/g, '');" required>
                     </div>
@@ -193,13 +229,15 @@
                     <textarea name="full_address" rows="3" placeholder="Enter complete address Village,Block,District etc" style="resize: vertical;" required></textarea>
                 </div>
 
-                <div class="section-title"><i class="fas fa-hotel"></i>Facility</div>
+                <div class="section-title"><i class="fas fa-hotel"></i>Co-education For</div>
                 <select name="hostel_type" style="width: 100%;" required>
-                    <option value="Day Scholar">Day Scholar</option>
                     <option value="Hosteller">Hosteller</option>
+                    <option value="Day Scholar">Day Scholar</option>
                 </select>
 
-                <button type="submit" class="submit-btn">Submit Application</button>
+                <button type="submit" class="submit-btn" id="submitBtn">
+                    <span id="btnText">Submit Application</span>
+                </button>
                 
                 <div style="text-align: center; margin: 15px 0; font-weight: 700; color: #888;">OR</div>
 
@@ -209,8 +247,7 @@
             </form>
         </div>
 
-        <!-- SUCCESS MESSAGE SECTION -->
-        <div class="success-card animate__animated animate__zoomIn" id="success-message">
+        <div class="success-card animate__animated hidden-box" id="success-message">
             <div style="width: 80px; height: 80px; background: #25D366; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 40px; margin: 0 auto 20px;">
                 <i class="fas fa-check"></i>
             </div>
@@ -218,31 +255,112 @@
             <p style="color: #444; margin-bottom: 30px; line-height: 1.6;">
                 Thank you for applying to <strong>Glorious Public School</strong>. Our admissions team will contact you shortly.
             </p>
-            <button onclick="location.reload()" class="submit-btn" style="width: auto; padding: 12px 40px;">Fill New Form</button>
+            
+            <button id="downloadPdfBtn" class="submit-btn" style="background: #e65100; margin-bottom: 15px;">
+                <i class="fas fa-file-pdf"></i> Download Receipt (PDF)
+            </button>
+
+            <button onclick="location.reload()" class="submit-btn" style="width: auto; padding: 12px 40px; margin: 0 auto;">Fill New Form</button>
         </div>
     </div>
 
-    <!-- SOCIAL FLOAT -->
-    <div class="social-float">
-        <a href="https://wa.link/48bjbp" class="social-btn wa"><i class="fab fa-whatsapp"></i></a>
-        <a href="https://www.facebook.com/share/1CGbYGJvvP/" class="social-btn fb"><i class="fab fa-facebook-f"></i></a>
-        <a href="https://youtube.com/@gps-maheshra" class="social-btn yt"><i class="fab fa-youtube"></i></a>
-        <a href="https://www.instagram.com/gpsmaheshra" class="social-btn insta"><i class="fab fa-instagram"></i></a>
+    <div id="pdf-content" style="display: none;">
+        <div class="pdf-template">
+            <div style="text-align: center; border-bottom: 3px solid #1a237e; padding-bottom: 10px;">
+                <h1 style="color: #1a237e; margin: 0;">GLORIOUS PUBLIC SCHOOL</h1>
+                <p style="margin: 5px 0; font-weight: 600;">Hazaribag, Jharkhand | Session 2026-27</p>
+                <h3 style="background: #ffd700; color: #1a237e; display: inline-block; padding: 5px 15px; border-radius: 5px; margin-top: 10px;">ADMISSION APPLICATION RECEIPT</h3>
+            </div>
+            
+            <table class="pdf-table">
+                <tr><th colspan="2" style="text-align: center;">STUDENT & PARENT INFORMATION</th></tr>
+                <tr><td><strong>Student Name:</strong></td><td id="lbl_name"></td></tr>
+                <tr><td><strong>Class Applied:</strong></td><td id="lbl_class"></td></tr>
+                <tr><td><strong>Father's Name:</strong></td><td id="lbl_father"></td></tr>
+                <tr><td><strong>Contact Number:</strong></td><td id="lbl_phone"></td></tr>
+                <tr><td><strong>Status:</strong></td><td style="color: green; font-weight: bold;">Submitted Successfully</td></tr>
+            </table>
+
+            <div style="margin-top: 50px; text-align: right;">
+                <p style="border-top: 1px solid #333; display: inline-block; padding-top: 50px; width: 150px; text-align: center;">Authorized Signatory</p>
+            </div>
+        </div>
     </div>
 
-    <!-- FOOTER -->
-    <footer style="background: var(--primary); color: white; padding: 40px 10%; text-align: center; border-top: 4px solid var(--accent);">
+    <div class="social-float">
+        <a href="https://wa.link/48bjbp" target="_blank" class="social-btn wa"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://www.facebook.com/share/1CGbYGJvvP/" target="_blank" class="social-btn fb"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://youtube.com/@gps-maheshra" target="_blank" class="social-btn yt"><i class="fab fa-youtube"></i></a>
+        <a href="https://www.instagram.com/gpsmaheshra" target="_blank" class="social-btn insta"><i class="fab fa-instagram"></i></a>
+    </div>
+
+    <footer>
         <p>&copy; 2026 Glorious Public School, Hazaribag</p>
-        <div style="margin-top: 25px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1);">
-            <p style="font-size: 13px; color: #aaa;">Managed & Contact for Web Development</p>
+        <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.1);">
+            <p style="font-size: 13px; color: #aaa; margin-bottom: 5px;">Managed & Contact for Web Development</p>
             <a href="https://www.instagram.com/your__ri0" target="_blank" class="dev-name">Developed by Arjun</a>
         </div>
     </footer>
 
     <script>
         document.getElementById('admissionForm').onsubmit = function(e) {
-            document.getElementById('admission-form-box').style.display = 'none';
-            document.getElementById('success-message').style.display = 'block';
+            e.preventDefault(); 
+
+            const formBox = document.getElementById('admission-form-box');
+            const successBox = document.getElementById('success-message');
+            const submitBtn = document.getElementById('submitBtn');
+            const btnText = document.getElementById('btnText');
+
+            // PDF fields me data load karein download ke liye
+            document.getElementById('lbl_name').innerText = document.getElementById('pdf_name').value;
+            document.getElementById('lbl_class').innerText = document.getElementById('pdf_class').value;
+            document.getElementById('lbl_father').innerText = document.getElementById('pdf_father').value;
+            document.getElementById('lbl_phone').innerText = document.getElementById('pdf_phone').value;
+
+            submitBtn.disabled = true;
+            btnText.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+
+            const formData = new FormData(this);
+
+            fetch('send_admission.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                formBox.classList.add('animate__fadeOutDown');
+                setTimeout(() => {
+                    formBox.classList.add('hidden-box'); 
+                    successBox.classList.remove('hidden-box');
+                    successBox.classList.add('animate__zoomIn');
+                }, 500); 
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                formBox.classList.add('animate__fadeOutDown');
+                setTimeout(() => {
+                    formBox.classList.add('hidden-box');
+                    successBox.classList.remove('hidden-box');
+                    successBox.classList.add('animate__zoomIn');
+                }, 500);
+            });
+        };
+
+        // PDF Download Trigger
+        document.getElementById('downloadPdfBtn').onclick = function() {
+            const element = document.getElementById('pdf-content');
+            element.style.display = 'block'; // Temporary display to capture
+
+            const opt = {
+                margin:       10,
+                filename:     'GPS_Admission_Receipt.pdf',
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2 },
+                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+
+            html2pdf().set(opt).from(element).save().then(() => {
+                element.style.display = 'none'; // Hide back after download
+            });
         };
     </script>
 
