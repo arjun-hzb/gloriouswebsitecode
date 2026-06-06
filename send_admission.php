@@ -12,17 +12,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $mother_phone = isset($_POST['mother_phone']) ? strip_tags(trim($_POST['mother_phone'])) : 'Not Provided';
     $full_address = isset($_POST['full_address']) ? strip_tags(trim($_POST['full_address'])) : '';
     $hostel_type  = isset($_POST['hostel_type']) ? strip_tags(trim($_POST['hostel_type'])) : '';
+    $submission_date = date("Y-m-d H:i:s");
 
-    // Kisko mail bhejna hai
+    // ==================== DATA SAVE TO CSV ====================
+    $file_name = 'admissions.csv';
+    $file_exists = file_exists($file_name);
+    $file_handle = fopen($file_name, 'a');
+    if ($file_handle) {
+        if (!$file_exists) {
+            fputcsv($file_handle, ['Date & Time', 'Student Name', 'Class', 'Father Name', 'Father Phone', 'Mother Phone', 'Facility', 'Address']);
+        }
+        fputcsv($file_handle, [$submission_date, $student_name, $class, $father_name, $father_phone, $mother_phone, $hostel_type, $full_address]);
+        fclose($file_handle);
+    }
+
+    // ==================== MAIL FUNCTION ====================
     $to = "gloriousgps@gmail.com"; 
-    
-    // Kis mail ID se jayega (Hostinger Professional Mail)
     $from = "gpsmaheshra@gloriouspublicschool.com"; 
-    
-    // Subject line
     $subject = "New Admission Inquiry: $student_name (Class: $class)";
 
-    // Premium 
     $message = "
     <html>
     <head>
@@ -44,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class='container'>
             <div class='header'>
                 <h2>Glorious Public School</h2>
-                <p>New Admission Inquiry (2026-27)</p>
+                <p>New Admission Inquiry</p>
             </div>
             <div class='content'>
                 <table>
@@ -86,21 +94,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </html>
     ";
 
-    // Headers set karna taki HTML mail sahi format me deliver ho
     $headers = "MIME-Version: 1.0" . "\r\n";
     $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
     $headers .= "From: GPS Admission <$from>" . "\r\n";
     $headers .= "Reply-To: $from" . "\r\n";
 
-    // Mail send function execution
-    if (mail($to, $subject, $message, $headers)) {
-        echo json_encode(["status" => "success", "message" => "Application submitted successfully."]);
-    } else {
-        http_response_code(500);
-        echo json_encode(["status" => "error", "message" => "Mail transmission failed."]);
-    }
+    // Mail execute aur JSON response
+    @mail($to, $subject, $message, $headers);
+    
+    echo json_encode(["status" => "success", "message" => "Application submitted successfully."]);
+    exit;
 } else {
     http_response_code(403);
     echo json_encode(["status" => "error", "message" => "Direct access not allowed."]);
+    exit;
 }
 ?>
