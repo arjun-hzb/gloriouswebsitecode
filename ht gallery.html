@@ -3,20 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Glorious Gallery | 8 Special Moments</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>Glorious Gallery | School Moments</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght=300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
         body { background: #0f0c29; background: linear-gradient(to right, #24243e, #302b63, #0f0c29); color: white; overflow-x: hidden; }
 
-        /* --- Back Button Navigation --- */
+        /* --- Responsive Navigation Bar --- */
         .nav-bar {
             background: rgba(0, 0, 0, 0.6);
             padding: 15px 8%;
             display: flex;
-            justify-content: flex-start;
+            justify-content: space-between;
+            align-items: center;
             border-bottom: 1px solid rgba(255,215,0,0.3);
             position: sticky;
             top: 0;
@@ -36,19 +37,161 @@
             font-size: 14px;
             transition: 0.3s ease;
             border: 1px solid #ffd700;
+            white-space: nowrap;
         }
-        .btn-back:hover { background: #ffd700; color: #1a237e; transform: translateX(-5px); }
+        .btn-back:hover { background: #ffd700; color: #1a237e; transform: translateY(-2px); }
+        
+        .btn-admin {
+            background: rgba(255, 215, 0, 0.1);
+            color: #ffd700;
+            border: 1px dashed #ffd700;
+        }
+        .btn-admin:hover { background: #ffd700; color: #1a237e; }
 
-        header { text-align: center; padding: 50px 20px; }
-        header h1 { font-size: 2.5rem; color: #ffd700; text-transform: uppercase; letter-spacing: 2px; text-shadow: 2px 2px 10px rgba(0,0,0,0.5); }
+        header { text-align: center; padding: 35px 20px 15px 20px; }
+        header h1 { font-size: 2.3rem; color: #ffd700; text-transform: uppercase; letter-spacing: 2px; text-shadow: 2px 2px 10px rgba(0,0,0,0.5); }
+        header p { font-size: 14px; color: #b0b5d6; margin-top: 5px; }
 
-        /* --- Gallery Grid --- */
+        /* --- MODERN CONTROL TABS SYSTEM --- */
+        .gallery-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 15px 8% 25px 8%;
+        }
+        .tab-trigger {
+            padding: 10px 25px;
+            border-radius: 30px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            color: #b0b5d6;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .tab-trigger:hover {
+            color: #fff;
+            background: rgba(255, 215, 0, 0.1);
+            border-color: #ffd700;
+        }
+        .tab-trigger.active {
+            background: #ffd700;
+            color: #1a237e;
+            border-color: #ffd700;
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.2);
+        }
+
+        /* --- Dynamic Collapsible Panels --- */
+        .collapsible-panel {
+            display: none;
+            animation: slideDown 0.4s ease forwards;
+        }
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- Live Control Filters Panel --- */
+        .search-filter-container {
+            margin: 0 8% 25px 8%;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .search-box-wrapper, .date-box-wrapper {
+            position: relative;
+            flex: 1;
+            min-width: 260px;
+        }
+        .search-box-wrapper i, .date-box-wrapper i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #ffd700;
+            font-size: 15px;
+        }
+        .filter-input {
+            width: 100%;
+            padding: 12px 15px 12px 45px;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 215, 0, 0.4);
+            background: rgba(0, 0, 0, 0.4);
+            color: white;
+            outline: none;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+        .filter-input:focus {
+            border-color: #ffd700;
+            box-shadow: 0 0 10px rgba(255,215,0,0.3);
+        }
+
+        /* --- Modern Responsive Upload Form --- */
+        .upload-container {
+            text-align: center; 
+            margin: 0 8% 25px 8%; 
+            padding: 30px; 
+            background: rgba(255,255,255,0.05); 
+            border-radius: 15px; 
+            border: 1px dashed #ffd700;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+        .upload-form {
+            display: flex; 
+            flex-wrap: wrap; 
+            justify-content: center; 
+            gap: 15px; 
+            align-items: center;
+        }
+        .input-title {
+            padding: 12px 20px; 
+            width: 100%;
+            max-width: 300px; 
+            border-radius: 30px; 
+            border: 1px solid #ffd700; 
+            background: rgba(0,0,0,0.4); 
+            color: white;
+            outline: none;
+        }
+        .input-file {
+            padding: 10px 15px; 
+            background: rgba(0,0,0,0.4); 
+            border: 1px solid #ffd700; 
+            border-radius: 30px; 
+            color: white; 
+            font-size: 13px;
+            cursor: pointer;
+            width: 100%;
+            max-width: 280px;
+        }
+        .btn-submit {
+            background: #ffd700; 
+            color: #1a237e; 
+            cursor: pointer; 
+            margin: 0;
+            border: 1px solid #ffd700;
+            font-weight: bold;
+        }
+        .btn-submit:disabled { background: #aaaaaa; border-color: #aaaaaa; color: #666666; cursor: not-allowed; }
+
+        /* --- Responsive Gallery Grid --- */
         .gallery-container { 
             padding: 20px 8%; 
             display: grid; 
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
             gap: 25px; 
-            perspective: 1000px; 
+            perspective: 1000px;
         }
 
         .gallery-item {
@@ -56,149 +199,285 @@
             height: 280px;
             border-radius: 15px;
             overflow: hidden;
-            cursor: pointer;
             box-shadow: 0 15px 35px rgba(0,0,0,0.5);
-            animation: cardEntrance 0.7s ease-out backwards;
             border: 2px solid rgba(255,255,255,0.1);
+            transition: transform 0.3s ease;
+            cursor: pointer;
         }
-
-        @keyframes cardEntrance {
-            from { opacity: 0; transform: scale(0.8) translateY(50px); }
-            to { opacity: 1; transform: scale(1) translateY(0); }
-        }
-
+        .gallery-item:hover { transform: translateY(-5px); }
         .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
-        .gallery-item:hover img { transform: scale(1.1); filter: grayscale(40%); }
+        .gallery-item:hover img { transform: scale(1.1); filter: grayscale(20%); }
+
+        .date-badge {
+            position: absolute;
+            bottom: 12px;
+            left: 12px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            color: #ffd700;
+            z-index: 5;
+            border: 1px solid rgba(255,215,0,0.25);
+            pointer-events: none;
+        }
 
         .overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(26, 35, 126, 0.7);
+            background: rgba(26, 35, 126, 0.75);
             display: flex; flex-direction: column; justify-content: center; align-items: center;
-            opacity: 0; transition: 0.4s;
+            opacity: 0; transition: 0.4s; pointer-events: none;
         }
         .gallery-item:hover .overlay { opacity: 1; }
-        .overlay i { font-size: 2.5rem; color: #ffd700; transform: translateY(20px); transition: 0.4s; }
+        .overlay i { font-size: 2.5rem; color: #ffd700; transform: translateY(10px); transition: 0.3s; }
         .gallery-item:hover .overlay i { transform: translateY(0); }
-        .overlay h3 { margin-top: 15px; font-size: 1.2rem; letter-spacing: 1px; }
+        .overlay h3 { margin-top: 10px; font-size: 1.2rem; padding: 0 15px; text-align: center; color: white; }
 
-        /* --- Lightbox --- */
+        /* --- Lightbox Modal --- */
         #lightbox {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.9);
+            background: rgba(0,0,0,0.95);
             display: none; justify-content: center; align-items: center;
-            z-index: 2000; flex-direction: column;
+            z-index: 9999; flex-direction: column;
         }
-        #lightbox img { max-width: 90%; max-height: 80%; border-radius: 10px; border: 3px solid #ffd700; animation: zoom 0.3s ease; }
-        @keyframes zoom { from { transform: scale(0.5); } to { transform: scale(1); } }
-        #lightbox h2 { margin-top: 15px; color: #ffd700; text-transform: uppercase; }
-        .close { position: absolute; top: 20px; right: 30px; font-size: 40px; color: white; cursor: pointer; }
+        #lightbox img { max-width: 90%; max-height: 80%; border-radius: 10px; border: 3px solid #ffd700; box-shadow: 0 0 25px rgba(255,215,0,0.4); animation: zoom 0.3s ease; }
+        @keyframes zoom { from { transform: scale(0.7); } to { transform: scale(1); } }
+        #lightbox h2 { margin-top: 15px; color: #ffd700; text-transform: uppercase; font-size: 1.3rem; text-align: center; padding: 0 20px; }
+        .close { position: absolute; top: 20px; right: 30px; font-size: 45px; color: white; cursor: pointer; font-weight: bold; transition: 0.3s; }
+        .close:hover { color: #ffd700; }
 
-        /* --- Footer (Index Style) --- */
-        footer { 
-            background: #1a237e; 
-            color: white; 
-            padding: 70px 10% 40px; 
+        /* --- Premium Full Footer --- */
+        .main-footer { 
+            background: #0f1442; 
+            color: #e0e0e0; 
+            padding: 60px 8% 30px 8%; 
+            border-top: 5px solid #ffd700;
+            font-size: 14px; 
             text-align: center; 
-            border-top: 6px solid #ffd700; 
             margin-top: 50px;
         }
-        .footer-copyright { font-size: 16px; margin-bottom: 30px; opacity: 0.9; }
-        .footer-copyright a { color: #ffd700; text-decoration: none; font-weight: 600; }
-
-        .dev-branding {
-            margin-top: 40px; padding-top: 30px;
-            border-top: 1px solid rgba(255,255,255,0.1);
+        .footer-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+            gap: 40px; 
+            margin-bottom: 40px; 
+            text-align: left;
         }
-        .dev-name {
-            font-size: 20px; font-weight: 700; text-decoration: none; display: inline-block;
-            background: linear-gradient(90deg, #ffd700, #ffffff, #ffd700); background-size: 200% auto;
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
-            animation: shine 4s linear infinite;
+        .footer-col h3 { 
+            color: #ffffff; 
+            font-size: 18px; 
+            font-weight: 600; 
+            margin-bottom: 20px; 
+            position: relative; 
+            padding-bottom: 8px; 
+            text-transform: uppercase; 
+            letter-spacing: 0.5px; 
         }
+        .footer-col h3::after { 
+            content: ''; 
+            position: absolute; 
+            left: 0; 
+            bottom: 0; 
+            width: 40px; 
+            height: 3px; 
+            background: #ffd700; 
+            border-radius: 2px; 
+        }
+        .footer-col p { line-height: 1.8; color: #b0b5d6; margin-bottom: 12px; }
+        .footer-col ul { list-style: none; padding: 0; margin: 0; }
+        .footer-col ul li { margin-bottom: 12px; }
+        .footer-col ul li a { color: #b0b5d6; text-decoration: none; transition: 0.3s ease; display: inline-block; }
+        .footer-col ul li a:hover { color: #ffd700; transform: translateX(5px); }
+        .footer-col ul li a i { color: #ffd700; margin-right: 8px; width: 15px; text-align: center; }
+        
+        .footer-bottom { border-top: 1px solid rgba(255, 255, 255, 0.08); padding-top: 30px; text-align: center; }
+        .footer-bottom p { color: #8a90b6; font-size: 13px; }
+        
+        .dev-wrapper { 
+            margin-top: 15px; background: rgba(0, 0, 0, 0.2); padding: 10px; 
+            border-radius: 8px; display: inline-block; border: 1px solid rgba(255,255,255,0.05); 
+        }
+        .dev-name { font-size: 18px; font-weight: 600; text-decoration: none; display: inline-block; background: linear-gradient(90deg, #ffd700, #ffffff, #ffd700); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: shine 3s linear infinite; }
         @keyframes shine { to { background-position: 200% center; } }
 
-        /* --- SOCIAL FLOAT --- */
-        .social-float { 
-            position: fixed; right: 25px; bottom: 30px; 
-            display: flex; flex-direction: column; gap: 15px; z-index: 2000; 
-        }
-        .social-btn { 
-            width: 55px; height: 55px; display: flex; align-items: center; justify-content: center; 
-            color: white; border-radius: 18px; text-decoration: none; font-size: 24px; 
-            background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); 
-            border: 1px solid rgba(255, 255, 255, 0.3); transition: 0.4s; 
-        }
+        .social-float { position: fixed; right: 25px; bottom: 30px; display: flex; flex-direction: column; gap: 15px; z-index: 2000; }
+        .social-btn { width: 55px; height: 55px; display: flex; align-items: center; justify-content: center; color: white; border-radius: 18px; text-decoration: none; font-size: 24px; background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.3); transition: 0.4s; }
         .insta:hover { background: #bc1888; transform: scale(1.2); }
         .yt:hover { background: #FF0000; transform: scale(1.2); }
         .fb:hover { background: #1877F2; transform: scale(1.2); }
         .wa:hover { background: #25D366; transform: scale(1.2); }
+
+        /* --- MOBILE & DESKTOP SYSTEM AUTO ADJUSTMENT --- */
+        @media (max-width: 768px) {
+            .nav-bar { padding: 12px 5%; }
+            header h1 { font-size: 1.8rem; }
+            .gallery-tabs { margin: 10px 5% 15px 5%; gap: 8px; }
+            .tab-trigger { padding: 8px 15px; font-size: 12px; flex: 1; justify-content: center; }
+            .search-filter-container { margin: 0 5% 15px 5%; flex-direction: column; align-items: stretch; padding: 15px; }
+            .search-box-wrapper, .date-box-wrapper { width: 100%; min-width: 100%; }
+            .upload-container { margin: 0 5% 15px 5%; padding: 20px; }
+            .input-title, .input-file, .btn-submit { width: 100%; max-width: 100%; }
+            .gallery-container { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); padding: 10px 5%; gap: 12px; }
+            .gallery-item { height: 160px; border-radius: 10px; }
+            .date-badge { font-size: 9px; padding: 2px 8px; bottom: 8px; left: 8px; }
+            .overlay h3 { font-size: 0.85rem; margin-top: 5px; }
+            .overlay i { font-size: 1.6rem; }
+            .footer-grid { grid-template-columns: 1fr; gap: 30px; text-align: center; }
+            .footer-col h3::after { left: 50%; transform: translateX(-50%); }
+            .social-float { right: 15px; bottom: 20px; }
+            .social-btn { width: 45px; height: 45px; font-size: 20px; border-radius: 12px; }
+        }
     </style>
 </head>
 <body>
 
-<!-- Navigation with Back Button -->
 <nav class="nav-bar">
     <a href="index.html" class="btn-back">
         <i class="fas fa-arrow-left"></i> Back to Home
+    </a>
+    <a href="admin.php" target="_blank" class="btn-back btn-admin">
+        <i class="fas fa-user-shield"></i> Admin Desk
     </a>
 </nav>
 
 <header>
     <h1>Glorious Photo Gallery</h1>
-    <p>Capturing the essence of excellence</p>
+    <p>Capturing the essence of excellence and beautiful memories</p>
 </header>
 
-<div class="gallery-container">
-    <div class="gallery-item" onclick="viewPhoto(this)">
-        <img src="https://www.gloriouspublicschool.com/gallery/building.png" alt="Building">
+<!-- CLEAN TAB SYSTEM SELECTORS -->
+<div class="gallery-tabs">
+    <button class="tab-trigger" onclick="togglePanel('uploadPanel', this)">
+        <i class="fas fa-cloud-upload-alt"></i> Upload Photo
+    </button>
+    <button class="tab-trigger" onclick="togglePanel('filterPanel', this)">
+        <i class="fas fa-search"></i> Search & Filter
+    </button>
+</div>
+
+<!-- Dynamic Upload Panel -->
+<div id="uploadPanel" class="collapsible-panel">
+    <div class="upload-container">
+        <h3 style="color: #ffd700; margin-bottom: 5px;">Share Your School Moments</h3>
+        <p style="font-size: 13px; color: #b0b5d6; margin-bottom: 20px;">Requires Admin Approval before going live on the page.</p>
+        <form id="ajaxUploadForm" enctype="multipart/form-data" class="upload-form">
+            <input type="text" id="photoTitle" name="title" placeholder="Enter Photo Title (e.g., Sports Day)" required class="input-title">
+            <input type="file" id="photoFile" name="photo" accept="image/*" required class="input-file">
+            <button type="submit" id="submitBtn" class="btn-back btn-submit"><i class="fas fa-paper-plane"></i> Submit Post</button>
+        </form>
+    </div>
+</div>
+
+<!-- Dynamic Search Panel -->
+<div id="filterPanel" class="collapsible-panel">
+    <div class="search-filter-container">
+        <div class="search-box-wrapper">
+            <i class="fas fa-search"></i>
+            <input type="text" id="liveSearchInput" placeholder="Search photos by title..." class="filter-input">
+        </div>
+        <div class="date-box-wrapper">
+            <i class="fas fa-calendar-alt"></i>
+            <input type="date" id="liveDateInput" class="filter-input">
+        </div>
+    </div>
+</div>
+
+<!-- Gallery Grid Container -->
+<div class="gallery-container" id="galleryGrid">
+    
+    <?php
+    $conn = new mysqli("localhost", "u237914560_rio_admin", "Arjun@9341344821", "u237914560_rio_admin");
+    
+    if (!$conn->connect_error) {
+        $result = $conn->query("SELECT *, DATE(post_date) as simple_date FROM school_gallery WHERE status='approved' ORDER BY id DESC");
+        if ($result && $result->num_rows > 0) {
+            while($row = $result->fetch_assoc()) {
+                $displayDate = date("d M Y", strtotime($row['post_date']));
+                $dataDate = $row['simple_date'];
+                ?>
+                <!-- FIXED CLICK HOOKS INSIDE MAIN CARD ELEMENT -->
+                <div class="gallery-item" onclick="viewPhoto(this)" data-title="<?php echo strtolower(htmlspecialchars($row['title'])); ?>" data-date="<?php echo $dataDate; ?>">
+                    <span class="date-badge"><i class="far fa-clock"></i> <?php echo $displayDate; ?></span>
+                    
+                    <!-- Delete execution remains isolated and safe -->
+                    <button onclick="event.stopPropagation(); checkPinAndDelete(<?php echo $row['id']; ?>)" style="position: absolute; top: 10px; right: 10px; background: rgba(255,0,0,0.9); color: white; padding: 4px 10px; border-radius: 6px; border: 1px solid white; font-size: 11px; font-weight: bold; cursor: pointer; z-index: 100;">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                    
+                    <img src="<?php echo $row['image_path']; ?>" alt="<?php echo htmlspecialchars($row['title']); ?>">
+                    <div class="overlay">
+                        <i class="fas fa-expand"></i>
+                        <h3><?php echo htmlspecialchars($row['title']); ?></h3>
+                    </div>
+                </div>
+                <?php
+            }
+        }
+        $conn->close();
+    }
+    ?>
+
+    <!-- --- STATIC HISTORICAL PHOTOS ARCHIVE --- -->
+    <div class="gallery-item" onclick="viewPhoto(this)" data-title="school building campus" data-date="2025-01-01">
+        <span class="date-badge"><i class="far fa-clock"></i> Archive</span>
+        <img src="https://www.gloriouspublicschool.com/gallery/building.png" alt="School Building">
         <div class="overlay"><i class="fas fa-expand"></i><h3>School Building</h3></div>
     </div>
-    <div class="gallery-item" onclick="viewPhoto(this)">
+    <div class="gallery-item" onclick="viewPhoto(this)" data-title="office admin block" data-date="2025-01-01">
+        <span class="date-badge"><i class="far fa-clock"></i> Archive</span>
         <img src="https://www.gloriouspublicschool.com/gallery/office.png" alt="Office">
         <div class="overlay"><i class="fas fa-expand"></i><h3>Office</h3></div>
     </div>
-    <div class="gallery-item" onclick="viewPhoto(this)">
-        <img src="https://www.gloriouspublicschool.com/gallery/smartclass1.png" alt="Class">
+    <div class="gallery-item" onclick="viewPhoto(this)" data-title="smart classroom study room" data-date="2025-01-01">
+        <span class="date-badge"><i class="far fa-clock"></i> Archive</span>
+        <img src="https://www.gloriouspublicschool.com/gallery/smartclass1.png" alt="Smart Classroom">
         <div class="overlay"><i class="fas fa-expand"></i><h3>Smart Classroom</h3></div>
     </div>
-    <div class="gallery-item" onclick="viewPhoto(this)">
-        <img src="https://www.gloriouspublicschool.com/gallery/smartclass2.png" alt="Lab">
+    <div class="gallery-item" onclick="viewPhoto(this)" data-title="classroom laboratory desk" data-date="2025-01-01">
+        <span class="date-badge"><i class="far fa-clock"></i> Archive</span>
+        <img src="https://www.gloriouspublicschool.com/gallery/smartclass2.png" alt="Classroom">
         <div class="overlay"><i class="fas fa-expand"></i><h3>Classroom</h3></div>
     </div>
-    <div class="gallery-item" onclick="viewPhoto(this)">
-        <img src="https://www.gloriouspublicschool.com/gallery/2ndsmartclass.png" alt="Science">
+    <div class="gallery-item" onclick="viewPhoto(this)" data-title="second smart class presentation" data-date="2025-01-01">
+        <span class="date-badge"><i class="far fa-clock"></i> Archive</span>
+        <img src="https://www.gloriouspublicschool.com/gallery/2ndsmartclass.png" alt="Second Smart Class">
         <div class="overlay"><i class="fas fa-expand"></i><h3>Second Smart Class</h3></div>
     </div>
-    <div class="gallery-item" onclick="viewPhoto(this)">
-        <img src="https://www.gloriouspublicschool.com/gallery/corridor.png" alt="Library">
+    <div class="gallery-item" onclick="viewPhoto(this)" data-title="corridor lobby library" data-date="2025-01-01">
+        <span class="date-badge"><i class="far fa-clock"></i> Archive</span>
+        <img src="https://www.gloriouspublicschool.com/gallery/corridor.png" alt="Corridor">
         <div class="overlay"><i class="fas fa-expand"></i><h3>Corridor</h3></div>
     </div>
-    <div class="gallery-item" onclick="viewPhoto(this)">
-        <img src="https://www.gloriouspublicschool.com/gallery/boys.jpeg" alt="Sports">
+    <div class="gallery-item" onclick="viewPhoto(this)" data-title="boys hostel room residential" data-date="2025-01-01">
+        <span class="date-badge"><i class="far fa-clock"></i> Archive</span>
+        <img src="https://www.gloriouspublicschool.com/gallery/boys.jpeg" alt="Boys Hostel">
         <div class="overlay"><i class="fas fa-expand"></i><h3>Boys Hostel</h3></div>
     </div>
-    <div class="gallery-item" onclick="viewPhoto(this)">
-        <img src="https://www.gloriouspublicschool.com/gallery/gloriousstudent.png" alt="Event">
-        <div class="overlay"><i class="fas fa-expand"></i><h3>student's </h3></div>
+    <div class="gallery-item" onclick="viewPhoto(this)" data-title="glorious students event campus" data-date="2025-01-01">
+        <span class="date-badge"><i class="far fa-clock"></i> Archive</span>
+        <img src="https://www.gloriouspublicschool.com/gallery/gloriousstudent.png" alt="Students">
+        <div class="overlay"><i class="fas fa-expand"></i><h3>Students</h3></div>
     </div>
-    <div class="gallery-item" onclick="viewPhoto(this)">
-        <img src="https://www.gloriouspublicschool.com/gallery/hostel.jpg" alt="Event">
+    <div class="gallery-item" onclick="viewPhoto(this)" data-title="girls hostel facility" data-date="2025-01-01">
+        <span class="date-badge"><i class="far fa-clock"></i> Archive</span>
+        <img src="https://www.gloriouspublicschool.com/gallery/hostel.jpg" alt="Girls Hostel">
         <div class="overlay"><i class="fas fa-expand"></i><h3>Girls Hostel</h3></div>
     </div>
-    <div class="gallery-item" onclick="viewPhoto(this)">
-        <img src="https://www.gloriouspublicschool.com/gallery/award.png" alt="Event">
-        <div class="overlay"><i class="fas fa-expand"></i><h3>award</h3></div>
+    <div class="gallery-item" onclick="viewPhoto(this)" data-title="award ceremony achievement recognition" data-date="2025-01-01">
+        <span class="date-badge"><i class="far fa-clock"></i> Archive</span>
+        <img src="https://www.gloriouspublicschool.com/gallery/award.png" alt="Award">
+        <div class="overlay"><i class="fas fa-expand"></i><h3>Award</h3></div>
     </div>
 </div>
 
-<!-- Lightbox -->
+<!-- Lightbox Full Modal -->
 <div id="lightbox">
     <span class="close" onclick="closePhoto()">&times;</span>
-    <img id="fullImg">
+    <img id="fullImg" src="" alt="Full View">
     <h2 id="caption"></h2>
 </div>
 
-<!-- Social Float -->
+<!-- Social Floating Handles -->
 <div class="social-float">
     <a href="https://wa.link/48bjbp" class="social-btn wa"><i class="fab fa-whatsapp"></i></a>
     <a href="https://www.facebook.com/share/1CGbYGJvvP/" class="social-btn fb"><i class="fab fa-facebook-f"></i></a>
@@ -206,34 +485,149 @@
     <a href="https://www.instagram.com/gpsmaheshra" class="social-btn insta"><i class="fab fa-instagram"></i></a>
 </div>
 
-<!-- Footer -->
-<footer>
-    <p class="footer-copyright">
-        &copy; 2026 <strong>Glorious Public School, Hazaribag</strong> | <a href="contact.html">Contact Us</a>
-    </p>
-    
-    <div class="dev-branding">
-        <p style="font-size: 14px; color: #aaa; margin-bottom: 12px;">Managed & Contact for Web Development</p>
-        <a href="https://www.instagram.com/your__ri0" target="_blank" class="dev-name">Developed by Arjun</a>
+<!-- Premium Full Footer -->
+<footer class="main-footer">
+    <div class="footer-grid">
+        <div class="footer-col">
+            <h3>Useful Links</h3>
+            <ul>
+                <li><a href="index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
+                <li><a href="about.html"><i class="fas fa-chevron-right"></i> About Us</a></li>
+                <li><a href="academic.html"><i class="fas fa-chevron-right"></i> Academics</a></li>
+                <li><a href="admission.html"><i class="fas fa-chevron-right"></i> Admissions</a></li>
+                <li><a href="fa1.html"><i class="fas fa-chevron-right"></i> Examination Results</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-col">
+            <h3>Quick Desk</h3>
+            <ul>
+                <li><a href="fee.html"><i class="fas fa-chevron-right"></i> Pay Online Fee</a></li>
+                <li><a href="infrastructure.html" target="_blank"><i class="fas fa-chevron-right"></i> Infrastructure</a></li>
+                <li><a href="gallery.php"><i class="fas fa-chevron-right"></i> School Gallery</a></li>
+                <li><a href="contact.html"><i class="fas fa-chevron-right"></i> Contact Us</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-col">
+            <h3>Contact Info</h3>
+            <p><i class="fas fa-map-marker-alt" style="color: #ffd700; margin-right: 6px;"></i> Maheshra, Hazaribag, Jharkhand, 825313</p>
+            <p><i class="fas fa-phone-alt" style="color: #ffd700; margin-right: 6px;"></i> <a href="tel:+919430708913" style="color: inherit; text-decoration: none;">+91 94307 08913</a></p>
+            <p><i class="fas fa-clock" style="color: #ffd700; margin-right: 6px;"></i> Mon - Sun: 7:00 AM - 5:00 PM</p>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <p>&copy; 2026 Glorious Public School, Hazaribag. All Rights Reserved.</p>
+        <div class="dev-wrapper">
+            <p style="font-size: 12px; color: #a4a9cc; margin-bottom: 4px;">Managed & Contact for Web Development</p>
+            <a href="https://arjun-hzb.github.io/arjun-hzb/" target="_blank" class="dev-name">Developed by Arjun</a>
+        </div>
     </div>
 </footer>
 
 <script>
-    function viewPhoto(element) {
-        const src = element.querySelector('img').src;
-        const title = element.querySelector('h3').innerText;
-        document.getElementById('fullImg').src = src;
-        document.getElementById('caption').innerText = title;
-        document.getElementById('lightbox').style.display = 'flex';
-    }
-    function closePhoto() {
-        document.getElementById('lightbox').style.display = 'none';
-    }
-    window.onclick = function(event) {
-        if (event.target == document.getElementById('lightbox')) {
-            closePhoto();
+    // --- TABS TOGGLING PANEL INTERACTION CONTROLLER ---
+    function togglePanel(panelId, btnElement) {
+        const targetPanel = document.getElementById(panelId);
+        const allPanels = document.querySelectorAll('.collapsible-panel');
+        const allButtons = document.querySelectorAll('.tab-trigger');
+
+        if (targetPanel.style.display === 'block') {
+            targetPanel.style.display = 'none';
+            btnElement.classList.remove('active');
+        } else {
+            allPanels.forEach(panel => panel.style.display = 'none');
+            allButtons.forEach(btn => btn.classList.remove('active'));
+            
+            targetPanel.style.display = 'block';
+            btnElement.classList.add('active');
         }
     }
+
+    // --- FIXED MODAL VIEWPHOTO ENGINE ---
+    function viewPhoto(element) {
+        const imgElement = element.querySelector('img');
+        const titleElement = element.querySelector('h3');
+        
+        if(imgElement) {
+            document.getElementById('fullImg').src = imgElement.src;
+            document.getElementById('caption').innerText = titleElement ? titleElement.innerText : '';
+            document.getElementById('lightbox').style.display = 'flex';
+        }
+    }
+    
+    function closePhoto() { 
+        document.getElementById('lightbox').style.display = 'none'; 
+    }
+    
+    // Close modal on gray space background click
+    document.getElementById('lightbox').addEventListener('click', function(e) {
+        if (e.target === this) closePhoto();
+    });
+
+    function checkPinAndDelete(photoId) {
+        let userPin = prompt("Enter 4-digit PIN to delete:");
+        if (userPin === "4821") {
+            window.location.href = "delete.php?id=" + photoId + "&pin=" + userPin;
+        } else if(userPin !== null) {
+            alert("Incorrect PIN!");
+        }
+    }
+
+    // --- SEARCH FILTERS CORE ENGINE ---
+    const searchInput = document.getElementById('liveSearchInput');
+    const dateInput = document.getElementById('liveDateInput');
+    const galleryItems = document.querySelectorAll('.gallery-item');
+
+    function filterGallery() {
+        const searchText = searchInput.value.toLowerCase().trim();
+        const selectedDate = dateInput.value; 
+
+        galleryItems.forEach(item => {
+            const itemTitle = item.getAttribute('data-title') || '';
+            const itemDate = item.getAttribute('data-date') || '';
+            
+            const matchesSearch = itemTitle.includes(searchText);
+            const matchesDate = (selectedDate === '') || (itemDate === selectedDate);
+
+            if (matchesSearch && matchesDate) {
+                item.style.style.setProperty('display', 'block', 'important');
+                item.style.display = 'block';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    }
+
+    searchInput.addEventListener('input', filterGallery);
+    dateInput.addEventListener('change', filterGallery);
+
+    // --- AJAX FORM TRACKING ---
+    document.getElementById('ajaxUploadForm').addEventListener('submit', function(e) {
+        e.preventDefault(); 
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Uploading...`;
+        
+        fetch('upload.php', { method: 'POST', body: new FormData(this) })
+        .then(res => res.json())
+        .then(data => {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = `<i class="fas fa-paper-plane"></i> Submit Post`;
+            alert(data.message);
+            if(data.status === 'success') {
+                document.getElementById('ajaxUploadForm').reset();
+                document.getElementById('uploadPanel').style.display = 'none';
+                document.querySelectorAll('.tab-trigger')[0].classList.remove('active');
+            }
+        })
+        .catch(() => {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = `<i class="fas fa-paper-plane"></i> Submit Post`;
+            alert("An error occurred during upload.");
+        });
+    });
 </script>
 
 </body>
