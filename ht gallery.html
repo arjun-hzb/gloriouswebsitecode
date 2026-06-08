@@ -203,10 +203,17 @@
             border: 2px solid rgba(255,255,255,0.1);
             transition: transform 0.3s ease;
             cursor: pointer;
+            background: rgba(0, 0, 0, 0.4);
         }
         .gallery-item:hover { transform: translateY(-5px); }
-        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
-        .gallery-item:hover img { transform: scale(1.1); filter: grayscale(20%); }
+        
+        .gallery-item img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: contain; 
+            transition: 0.5s; 
+        }
+        .gallery-item:hover img { transform: scale(1.05); }
 
         .date-badge {
             position: absolute;
@@ -224,65 +231,132 @@
 
         .overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(26, 35, 126, 0.75);
+            background: rgba(26, 35, 126, 0.8);
             display: flex; flex-direction: column; justify-content: center; align-items: center;
-            opacity: 0; transition: 0.4s; pointer-events: none;
+            opacity: 0; transition: 0.4s;
         }
         .gallery-item:hover .overlay { opacity: 1; }
-        .overlay i { font-size: 2.5rem; color: #ffd700; transform: translateY(10px); transition: 0.3s; }
+        .overlay i { font-size: 2.5rem; color: #ffd700; transform: translateY(10px); transition: 0.3s; margin-bottom: 10px; }
         .gallery-item:hover .overlay i { transform: translateY(0); }
-        .overlay h3 { margin-top: 10px; font-size: 1.2rem; padding: 0 15px; text-align: center; color: white; }
+        .overlay h3 { font-size: 1.2rem; padding: 0 15px; text-align: center; color: white; }
 
-        /* --- Lightbox Modal --- */
+        .btn-delete {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #ff1744;
+            color: white;
+            padding: 6px 14px;
+            border-radius: 30px;
+            border: none;
+            font-size: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 110;
+            box-shadow: 0 4px 10px rgba(255,23,68,0.4);
+            transition: 0.2s;
+        }
+        .btn-delete:hover { background: #b20028; transform: scale(1.05); }
+
+        /* --- LIGHTBOX MODAL WITH MULTI-EFFECT SYSTEM --- */
         #lightbox {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.95);
+            background: rgba(5, 5, 15, 0.98);
             display: none; justify-content: center; align-items: center;
             z-index: 9999; flex-direction: column;
+            backdrop-filter: blur(12px);
+            perspective: 1200px; /* Needed for 3D flip effects */
         }
-        #lightbox img { max-width: 90%; max-height: 80%; border-radius: 10px; border: 3px solid #ffd700; box-shadow: 0 0 25px rgba(255,215,0,0.4); animation: zoom 0.3s ease; }
-        @keyframes zoom { from { transform: scale(0.7); } to { transform: scale(1); } }
-        #lightbox h2 { margin-top: 15px; color: #ffd700; text-transform: uppercase; font-size: 1.3rem; text-align: center; padding: 0 20px; }
-        .close { position: absolute; top: 20px; right: 30px; font-size: 45px; color: white; cursor: pointer; font-weight: bold; transition: 0.3s; }
-        .close:hover { color: #ffd700; }
+
+        .lightbox-content-wrapper {
+            width: 85%;
+            height: 75%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #lightbox img { 
+            max-width: 100%; 
+            max-height: 100%; 
+            border-radius: 12px; 
+            border: 2px solid rgba(255, 215, 0, 0.6); 
+            box-shadow: 0 0 35px rgba(255,215,0,0.3); 
+            object-fit: contain;
+            opacity: 1;
+            transform: scale(1) translateX(0) rotateY(0deg);
+            transition: all 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94); 
+            backface-visibility: hidden;
+        }
+
+        /* --- STYLISH DYNAMIC EFFECT CLASSES --- */
+        /* Effect 1: Zoom & Fade Out */
+        #lightbox img.fx-zoom { opacity: 0; transform: scale(0.93); }
+        
+        /* Effect 2: Slide to Left */
+        #lightbox img.fx-slide-left { opacity: 0; transform: translateX(-60px); }
+        
+        /* Effect 3: Slide to Right */
+        #lightbox img.fx-slide-right { opacity: 0; transform: translateX(60px); }
+        
+        /* Effect 4: 3D Flip Card Effect */
+        #lightbox img.fx-flip { opacity: 0; transform: rotateY(45deg) scale(0.95); }
+
+        /* Caption Text Effect */
+        #lightbox h2 { 
+            margin-top: 20px; color: #ffd700; text-transform: uppercase; 
+            font-size: 1.3rem; text-align: center; padding: 0 20px; letter-spacing: 1px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+            transform: translateY(0); opacity: 1;
+            transition: all 0.35s ease;
+        }
+        #lightbox h2.fx-caption { opacity: 0; transform: translateY(15px); }
+        
+        .close { 
+            position: absolute; top: 20px; right: 30px; font-size: 42px; 
+            color: rgba(255,255,255,0.6); cursor: pointer; font-weight: 300; 
+            transition: 0.3s; z-index: 10000; width: 50px; height: 50px;
+            display: flex; align-items: center; justify-content: center;
+            background: rgba(255,255,255,0.05); border-radius: 50%;
+        }
+        .close:hover { color: #ffd700; background: rgba(255,215,0,0.1); transform: rotate(90deg); }
+
+        /* Premium Floating Glassmorphism Slideshow Control */
+        .slideshow-btn {
+            position: absolute; top: 25px; left: 30px;
+            background: rgba(255, 215, 0, 0.15); color: #ffd700;
+            border: 1px solid rgba(255, 215, 0, 0.4); padding: 10px 22px; border-radius: 30px;
+            font-weight: 600; cursor: pointer; font-size: 14px;
+            display: inline-flex; align-items: center; gap: 10px; z-index: 10000;
+            backdrop-filter: blur(10px); transition: 0.3s;
+        }
+        .slideshow-btn:hover { background: #ffd700; color: #1a237e; box-shadow: 0 0 20px rgba(255,215,0,0.4); }
+        .slideshow-btn.playing { background: #25D366; color: white; border-color: #25D366; box-shadow: 0 0 20px rgba(37,211,102,0.4); }
+
+        /* Sleek Modern Navigation Arrows */
+        .slider-arrow {
+            position: absolute; top: 50%; transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.5); color: rgba(255,255,255,0.8);
+            border: 1px solid rgba(255,255,255,0.15);
+            width: 60px; height: 60px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 18px; cursor: pointer; transition: 0.3s ease; z-index: 9999;
+            backdrop-filter: blur(5px);
+        }
+        .slider-arrow:hover { background: #ffd700; color: #1a237e; border-color: #ffd700; box-shadow: 0 0 15px rgba(255,215,0,0.3); }
+        .arrow-left { left: 40px; }
+        .arrow-right { right: 40px; }
 
         /* --- Premium Full Footer --- */
         .main-footer { 
-            background: #0f1442; 
-            color: #e0e0e0; 
-            padding: 60px 8% 30px 8%; 
-            border-top: 5px solid #ffd700;
-            font-size: 14px; 
-            text-align: center; 
-            margin-top: 50px;
+            background: #0f1442; color: #e0e0e0; padding: 60px 8% 30px 8%; 
+            border-top: 5px solid #ffd700; font-size: 14px; text-align: center; margin-top: 50px;
         }
-        .footer-grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
-            gap: 40px; 
-            margin-bottom: 40px; 
-            text-align: left;
-        }
-        .footer-col h3 { 
-            color: #ffffff; 
-            font-size: 18px; 
-            font-weight: 600; 
-            margin-bottom: 20px; 
-            position: relative; 
-            padding-bottom: 8px; 
-            text-transform: uppercase; 
-            letter-spacing: 0.5px; 
-        }
-        .footer-col h3::after { 
-            content: ''; 
-            position: absolute; 
-            left: 0; 
-            bottom: 0; 
-            width: 40px; 
-            height: 3px; 
-            background: #ffd700; 
-            border-radius: 2px; 
-        }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; margin-bottom: 40px; text-align: left; }
+        .footer-col h3 { color: #ffffff; font-size: 18px; font-weight: 600; margin-bottom: 20px; position: relative; padding-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .footer-col h3::after { content: ''; position: absolute; left: 0; bottom: 0; width: 40px; height: 3px; background: #ffd700; border-radius: 2px; }
         .footer-col p { line-height: 1.8; color: #b0b5d6; margin-bottom: 12px; }
         .footer-col ul { list-style: none; padding: 0; margin: 0; }
         .footer-col ul li { margin-bottom: 12px; }
@@ -293,10 +367,7 @@
         .footer-bottom { border-top: 1px solid rgba(255, 255, 255, 0.08); padding-top: 30px; text-align: center; }
         .footer-bottom p { color: #8a90b6; font-size: 13px; }
         
-        .dev-wrapper { 
-            margin-top: 15px; background: rgba(0, 0, 0, 0.2); padding: 10px; 
-            border-radius: 8px; display: inline-block; border: 1px solid rgba(255,255,255,0.05); 
-        }
+        .dev-wrapper { margin-top: 15px; background: rgba(0, 0, 0, 0.2); padding: 10px; border-radius: 8px; display: inline-block; border: 1px solid rgba(255,255,255,0.05); }
         .dev-name { font-size: 18px; font-weight: 600; text-decoration: none; display: inline-block; background: linear-gradient(90deg, #ffd700, #ffffff, #ffd700); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: shine 3s linear infinite; }
         @keyframes shine { to { background-position: 200% center; } }
 
@@ -307,7 +378,7 @@
         .fb:hover { background: #1877F2; transform: scale(1.2); }
         .wa:hover { background: #25D366; transform: scale(1.2); }
 
-        /* --- MOBILE & DESKTOP SYSTEM AUTO ADJUSTMENT --- */
+        /* --- MOBILE AUTO ADJUSTMENT --- */
         @media (max-width: 768px) {
             .nav-bar { padding: 12px 5%; }
             header h1 { font-size: 1.8rem; }
@@ -321,7 +392,18 @@
             .gallery-item { height: 160px; border-radius: 10px; }
             .date-badge { font-size: 9px; padding: 2px 8px; bottom: 8px; left: 8px; }
             .overlay h3 { font-size: 0.85rem; margin-top: 5px; }
-            .overlay i { font-size: 1.6rem; }
+            .overlay i { font-size: 1.6rem; margin-bottom: 4px; }
+            .btn-delete { top: 8px; right: 8px; padding: 4px 10px; font-size: 10px; }
+            
+            /* Mobile Lightbox Slider Elements Responsive Fix */
+            .lightbox-content-wrapper { width: 95%; height: 60%; }
+            .slider-arrow { width: 45px; height: 45px; font-size: 14px; background: rgba(0,0,0,0.7); }
+            .arrow-left { left: 8px; }
+            .arrow-right { right: 8px; }
+            .slideshow-btn { top: 20px; left: 15px; padding: 8px 14px; font-size: 11px; }
+            .close { top: 15px; right: 15px; font-size: 28px; width: 36px; height: 36px; }
+            #lightbox h2 { font-size: 1.05rem; }
+
             .footer-grid { grid-template-columns: 1fr; gap: 30px; text-align: center; }
             .footer-col h3::after { left: 50%; transform: translateX(-50%); }
             .social-float { right: 15px; bottom: 20px; }
@@ -332,12 +414,8 @@
 <body>
 
 <nav class="nav-bar">
-    <a href="index.html" class="btn-back">
-        <i class="fas fa-arrow-left"></i> Back to Home
-    </a>
-    <a href="admin.php" target="_blank" class="btn-back btn-admin">
-        <i class="fas fa-user-shield"></i> Admin Desk
-    </a>
+    <a href="index.html" class="btn-back"><i class="fas fa-arrow-left"></i> Back to Home</a>
+    <a href="admin.php" target="_blank" class="btn-back btn-admin"><i class="fas fa-user-shield"></i> Admin Desk</a>
 </nav>
 
 <header>
@@ -345,17 +423,12 @@
     <p>Capturing the essence of excellence and beautiful memories</p>
 </header>
 
-<!-- CLEAN TAB SYSTEM SELECTORS -->
 <div class="gallery-tabs">
-    <button class="tab-trigger" onclick="togglePanel('uploadPanel', this)">
-        <i class="fas fa-cloud-upload-alt"></i> Upload Photo
-    </button>
-    <button class="tab-trigger" onclick="togglePanel('filterPanel', this)">
-        <i class="fas fa-search"></i> Search & Filter
-    </button>
+    <button class="tab-trigger" onclick="togglePanel('uploadPanel', this)"><i class="fas fa-cloud-upload-alt"></i> Upload Photo</button>
+    <button class="tab-trigger" onclick="togglePanel('filterPanel', this)"><i class="fas fa-search"></i> Search & Filter</button>
 </div>
 
-<!-- Dynamic Upload Panel -->
+<!-- Dynamic Panels -->
 <div id="uploadPanel" class="collapsible-panel">
     <div class="upload-container">
         <h3 style="color: #ffd700; margin-bottom: 5px;">Share Your School Moments</h3>
@@ -368,7 +441,6 @@
     </div>
 </div>
 
-<!-- Dynamic Search Panel -->
 <div id="filterPanel" class="collapsible-panel">
     <div class="search-filter-container">
         <div class="search-box-wrapper">
@@ -391,89 +463,88 @@
     if (!$conn->connect_error) {
         $result = $conn->query("SELECT *, DATE(post_date) as simple_date FROM school_gallery WHERE status='approved' ORDER BY id DESC");
         if ($result && $result->num_rows > 0) {
+            $index = 0;
             while($row = $result->fetch_assoc()) {
                 $displayDate = date("d M Y", strtotime($row['post_date']));
                 $dataDate = $row['simple_date'];
                 ?>
-                <!-- FIXED CLICK HOOKS INSIDE MAIN CARD ELEMENT -->
-                <div class="gallery-item" onclick="viewPhoto(this)" data-title="<?php echo strtolower(htmlspecialchars($row['title'])); ?>" data-date="<?php echo $dataDate; ?>">
+                <div class="gallery-item" onclick="openLightbox(<?php echo $index; ?>)" data-title="<?php echo strtolower(htmlspecialchars($row['title'])); ?>" data-date="<?php echo $dataDate; ?>">
                     <span class="date-badge"><i class="far fa-clock"></i> <?php echo $displayDate; ?></span>
-                    
-                    <!-- Delete execution remains isolated and safe -->
-                    <button onclick="event.stopPropagation(); checkPinAndDelete(<?php echo $row['id']; ?>)" style="position: absolute; top: 10px; right: 10px; background: rgba(255,0,0,0.9); color: white; padding: 4px 10px; border-radius: 6px; border: 1px solid white; font-size: 11px; font-weight: bold; cursor: pointer; z-index: 100;">
-                        <i class="fas fa-trash"></i>
-                    </button>
-                    
                     <img src="<?php echo $row['image_path']; ?>" alt="<?php echo htmlspecialchars($row['title']); ?>">
                     <div class="overlay">
+                        <button class="btn-delete" onclick="event.stopPropagation(); checkPinAndDelete(<?php echo $row['id']; ?>)">
+                            <i class="fas fa-trash"></i> Delete
+                        </button>
                         <i class="fas fa-expand"></i>
                         <h3><?php echo htmlspecialchars($row['title']); ?></h3>
                     </div>
                 </div>
                 <?php
+                $index++;
             }
         }
         $conn->close();
     }
     ?>
 
-    <!-- --- STATIC HISTORICAL PHOTOS ARCHIVE --- -->
-    <div class="gallery-item" onclick="viewPhoto(this)" data-title="school building campus" data-date="2025-01-01">
-        <span class="date-badge"><i class="far fa-clock"></i> Archive</span>
+    <!-- --- STATIC ARCHIVE PHOTOS --- -->
+    <div class="gallery-item" onclick="openLightbox(document.querySelectorAll('.gallery-item').length - 10)" data-title="school building campus" data-date="2025-01-01">
         <img src="https://www.gloriouspublicschool.com/gallery/building.png" alt="School Building">
         <div class="overlay"><i class="fas fa-expand"></i><h3>School Building</h3></div>
     </div>
-    <div class="gallery-item" onclick="viewPhoto(this)" data-title="office admin block" data-date="2025-01-01">
-        <span class="date-badge"><i class="far fa-clock"></i> Archive</span>
+    <div class="gallery-item" onclick="openLightbox(document.querySelectorAll('.gallery-item').length - 9)" data-title="office admin block" data-date="2025-01-01">
         <img src="https://www.gloriouspublicschool.com/gallery/office.png" alt="Office">
         <div class="overlay"><i class="fas fa-expand"></i><h3>Office</h3></div>
     </div>
-    <div class="gallery-item" onclick="viewPhoto(this)" data-title="smart classroom study room" data-date="2025-01-01">
-        <span class="date-badge"><i class="far fa-clock"></i> Archive</span>
+    <div class="gallery-item" onclick="openLightbox(document.querySelectorAll('.gallery-item').length - 8)" data-title="smart classroom study room" data-date="2025-01-01">
         <img src="https://www.gloriouspublicschool.com/gallery/smartclass1.png" alt="Smart Classroom">
         <div class="overlay"><i class="fas fa-expand"></i><h3>Smart Classroom</h3></div>
     </div>
-    <div class="gallery-item" onclick="viewPhoto(this)" data-title="classroom laboratory desk" data-date="2025-01-01">
-        <span class="date-badge"><i class="far fa-clock"></i> Archive</span>
+    <div class="gallery-item" onclick="openLightbox(document.querySelectorAll('.gallery-item').length - 7)" data-title="classroom laboratory desk" data-date="2025-01-01">
         <img src="https://www.gloriouspublicschool.com/gallery/smartclass2.png" alt="Classroom">
         <div class="overlay"><i class="fas fa-expand"></i><h3>Classroom</h3></div>
     </div>
-    <div class="gallery-item" onclick="viewPhoto(this)" data-title="second smart class presentation" data-date="2025-01-01">
-        <span class="date-badge"><i class="far fa-clock"></i> Archive</span>
+    <div class="gallery-item" onclick="openLightbox(document.querySelectorAll('.gallery-item').length - 6)" data-title="second smart class presentation" data-date="2025-01-01">
         <img src="https://www.gloriouspublicschool.com/gallery/2ndsmartclass.png" alt="Second Smart Class">
         <div class="overlay"><i class="fas fa-expand"></i><h3>Second Smart Class</h3></div>
     </div>
-    <div class="gallery-item" onclick="viewPhoto(this)" data-title="corridor lobby library" data-date="2025-01-01">
-        <span class="date-badge"><i class="far fa-clock"></i> Archive</span>
+    <div class="gallery-item" onclick="openLightbox(document.querySelectorAll('.gallery-item').length - 5)" data-title="corridor lobby library" data-date="2025-01-01">
         <img src="https://www.gloriouspublicschool.com/gallery/corridor.png" alt="Corridor">
         <div class="overlay"><i class="fas fa-expand"></i><h3>Corridor</h3></div>
     </div>
-    <div class="gallery-item" onclick="viewPhoto(this)" data-title="boys hostel room residential" data-date="2025-01-01">
-        <span class="date-badge"><i class="far fa-clock"></i> Archive</span>
+    <div class="gallery-item" onclick="openLightbox(document.querySelectorAll('.gallery-item').length - 4)" data-title="boys hostel room residential" data-date="2025-01-01">
         <img src="https://www.gloriouspublicschool.com/gallery/boys.jpeg" alt="Boys Hostel">
         <div class="overlay"><i class="fas fa-expand"></i><h3>Boys Hostel</h3></div>
     </div>
-    <div class="gallery-item" onclick="viewPhoto(this)" data-title="glorious students event campus" data-date="2025-01-01">
-        <span class="date-badge"><i class="far fa-clock"></i> Archive</span>
+    <div class="gallery-item" onclick="openLightbox(document.querySelectorAll('.gallery-item').length - 3)" data-title="glorious students event campus" data-date="2025-01-01">
         <img src="https://www.gloriouspublicschool.com/gallery/gloriousstudent.png" alt="Students">
         <div class="overlay"><i class="fas fa-expand"></i><h3>Students</h3></div>
     </div>
-    <div class="gallery-item" onclick="viewPhoto(this)" data-title="girls hostel facility" data-date="2025-01-01">
-        <span class="date-badge"><i class="far fa-clock"></i> Archive</span>
+    <div class="gallery-item" onclick="openLightbox(document.querySelectorAll('.gallery-item').length - 2)" data-title="girls hostel facility" data-date="2025-01-01">
         <img src="https://www.gloriouspublicschool.com/gallery/hostel.jpg" alt="Girls Hostel">
         <div class="overlay"><i class="fas fa-expand"></i><h3>Girls Hostel</h3></div>
     </div>
-    <div class="gallery-item" onclick="viewPhoto(this)" data-title="award ceremony achievement recognition" data-date="2025-01-01">
-        <span class="date-badge"><i class="far fa-clock"></i> Archive</span>
+    <div class="gallery-item" onclick="openLightbox(document.querySelectorAll('.gallery-item').length - 1)" data-title="award ceremony achievement recognition" data-date="2025-01-01">
         <img src="https://www.gloriouspublicschool.com/gallery/award.png" alt="Award">
         <div class="overlay"><i class="fas fa-expand"></i><h3>Award</h3></div>
     </div>
 </div>
 
-<!-- Lightbox Full Modal -->
+<!-- Lightbox Elegant Slider Modal -->
 <div id="lightbox">
+    <button class="slideshow-btn" id="slideTrackBtn" onclick="toggleSlideshow()">
+        <i class="fas fa-play" id="playIcon"></i> <span id="slideText">Play Slideshow</span>
+    </button>
     <span class="close" onclick="closePhoto()">&times;</span>
-    <img id="fullImg" src="" alt="Full View">
+    
+    <button class="slider-arrow arrow-left" onclick="changePhoto(-1)"><i class="fas fa-chevron-left"></i></button>
+    
+    <div class="lightbox-content-wrapper">
+        <img id="fullImg" src="" alt="Full View">
+    </div>
+    
+    <button class="slider-arrow arrow-right" onclick="changePhoto(1)"><i class="fas fa-chevron-right"></i></button>
+    
     <h2 id="caption"></h2>
 </div>
 
@@ -498,7 +569,6 @@
                 <li><a href="fa1.html"><i class="fas fa-chevron-right"></i> Examination Results</a></li>
             </ul>
         </div>
-
         <div class="footer-col">
             <h3>Quick Desk</h3>
             <ul>
@@ -508,7 +578,6 @@
                 <li><a href="contact.html"><i class="fas fa-chevron-right"></i> Contact Us</a></li>
             </ul>
         </div>
-
         <div class="footer-col">
             <h3>Contact Info</h3>
             <p><i class="fas fa-map-marker-alt" style="color: #ffd700; margin-right: 6px;"></i> Maheshra, Hazaribag, Jharkhand, 825313</p>
@@ -516,7 +585,6 @@
             <p><i class="fas fa-clock" style="color: #ffd700; margin-right: 6px;"></i> Mon - Sun: 7:00 AM - 5:00 PM</p>
         </div>
     </div>
-
     <div class="footer-bottom">
         <p>&copy; 2026 Glorious Public School, Hazaribag. All Rights Reserved.</p>
         <div class="dev-wrapper">
@@ -527,7 +595,25 @@
 </footer>
 
 <script>
-    // --- TABS TOGGLING PANEL INTERACTION CONTROLLER ---
+    let currentPhotoIndex = 0;
+    let slideshowInterval = null;
+    let visibleItemsIndices = [];
+    
+    // Effects List Array
+    const effectClasses = ['fx-zoom', 'fx-slide-left', 'fx-slide-right', 'fx-flip'];
+
+    function syncVisibleItems() {
+        visibleItemsIndices = [];
+        const items = document.querySelectorAll('.gallery-item');
+        items.forEach((item, index) => {
+            if (item.style.display !== 'none') {
+                visibleItemsIndices.push(index);
+                item.setAttribute('onclick', `openLightbox(${visibleItemsIndices.length - 1})`);
+            }
+        });
+    }
+    window.addEventListener('DOMContentLoaded', syncVisibleItems);
+
     function togglePanel(panelId, btnElement) {
         const targetPanel = document.getElementById(panelId);
         const allPanels = document.querySelectorAll('.collapsible-panel');
@@ -539,31 +625,106 @@
         } else {
             allPanels.forEach(panel => panel.style.display = 'none');
             allButtons.forEach(btn => btn.classList.remove('active'));
-            
             targetPanel.style.display = 'block';
             btnElement.classList.add('active');
         }
     }
 
-    // --- FIXED MODAL VIEWPHOTO ENGINE ---
-    function viewPhoto(element) {
-        const imgElement = element.querySelector('img');
-        const titleElement = element.querySelector('h3');
+    // --- RANDOM MULTI-EFFECT LIGHTBOX SLIDER ENGINE ---
+    function openLightbox(index) {
+        syncVisibleItems();
+        if(visibleItemsIndices.length === 0) return;
         
-        if(imgElement) {
-            document.getElementById('fullImg').src = imgElement.src;
-            document.getElementById('caption').innerText = titleElement ? titleElement.innerText : '';
-            document.getElementById('lightbox').style.display = 'flex';
+        currentPhotoIndex = index;
+        updateLightboxPhoto(false); // Pop open directly on first tap
+        document.getElementById('lightbox').style.display = 'flex';
+    }
+
+    function updateLightboxPhoto(applyEffect = true) {
+        const items = document.querySelectorAll('.gallery-item');
+        const trueIndex = visibleItemsIndices[currentPhotoIndex];
+        const activeItem = items[trueIndex];
+
+        if(activeItem) {
+            const imgElement = activeItem.querySelector('img');
+            const titleElement = activeItem.querySelector('h3');
+            
+            const fullImg = document.getElementById('fullImg');
+            const caption = document.getElementById('caption');
+
+            if(applyEffect) {
+                // Select a completely random cinematic effect from the array list
+                const randomFX = effectClasses[Math.floor(Math.random() * effectClasses.length)];
+                
+                // Inject animation trigger classes
+                fullImg.classList.add(randomFX);
+                caption.classList.add('fx-caption');
+
+                setTimeout(() => {
+                    fullImg.src = imgElement.src;
+                    caption.innerText = titleElement ? titleElement.innerText : '';
+                    
+                    // Smoothly fade-in/animate with the new photo elements
+                    fullImg.classList.remove('fx-zoom', 'fx-slide-left', 'fx-slide-right', 'fx-flip');
+                    caption.classList.remove('fx-caption');
+                }, 280); 
+            } else {
+                fullImg.src = imgElement.src;
+                caption.innerText = titleElement ? titleElement.innerText : '';
+                fullImg.classList.remove('fx-zoom', 'fx-slide-left', 'fx-slide-right', 'fx-flip');
+                caption.classList.remove('fx-caption');
+            }
         }
     }
-    
+
+    function changePhoto(direction) {
+        if(visibleItemsIndices.length <= 1) return;
+        
+        currentPhotoIndex += direction;
+        if (currentPhotoIndex >= visibleItemsIndices.length) currentPhotoIndex = 0;
+        if (currentPhotoIndex < 0) currentPhotoIndex = visibleItemsIndices.length - 1;
+        
+        updateLightboxPhoto(true); 
+    }
+
+    // --- AUTOMATIC SLIDESHOW TIMER ENGINE ---
+    function toggleSlideshow() {
+        const playIcon = document.getElementById('playIcon');
+        const slideText = document.getElementById('slideText');
+        const trackBtn = document.getElementById('slideTrackBtn');
+
+        if (slideshowInterval) {
+            clearInterval(slideshowInterval);
+            slideshowInterval = null;
+            playIcon.className = "fas fa-play";
+            slideText.innerText = "Play Slideshow";
+            trackBtn.classList.remove('playing');
+        } else {
+            playIcon.className = "fas fa-pause";
+            slideText.innerText = "Pause Slideshow";
+            trackBtn.classList.add('playing');
+            
+            slideshowInterval = setInterval(() => {
+                changePhoto(1);
+            }, 3000); // Transitions nicely every 3 seconds
+        }
+    }
+
     function closePhoto() { 
         document.getElementById('lightbox').style.display = 'none'; 
+        if (slideshowInterval) toggleSlideshow(); 
     }
     
-    // Close modal on gray space background click
     document.getElementById('lightbox').addEventListener('click', function(e) {
-        if (e.target === this) closePhoto();
+        if (e.target === this || e.target.classList.contains('lightbox-content-wrapper')) closePhoto();
+    });
+
+    document.addEventListener('keydown', function(e) {
+        if (document.getElementById('lightbox').style.display === 'flex') {
+            if (e.key === 'ArrowRight') changePhoto(1);
+            if (e.key === 'ArrowLeft') changePhoto(-1);
+            if (e.key === 'Escape') closePhoto();
+        }
     });
 
     function checkPinAndDelete(photoId) {
@@ -575,7 +736,7 @@
         }
     }
 
-    // --- SEARCH FILTERS CORE ENGINE ---
+    // --- SEARCH FILTER CORE ENGINE ---
     const searchInput = document.getElementById('liveSearchInput');
     const dateInput = document.getElementById('liveDateInput');
     const galleryItems = document.querySelectorAll('.gallery-item');
@@ -592,18 +753,18 @@
             const matchesDate = (selectedDate === '') || (itemDate === selectedDate);
 
             if (matchesSearch && matchesDate) {
-                item.style.style.setProperty('display', 'block', 'important');
                 item.style.display = 'block';
             } else {
                 item.style.display = 'none';
             }
         });
+        syncVisibleItems();
     }
 
     searchInput.addEventListener('input', filterGallery);
     dateInput.addEventListener('change', filterGallery);
 
-    // --- AJAX FORM TRACKING ---
+    // Form Upload Async Handler
     document.getElementById('ajaxUploadForm').addEventListener('submit', function(e) {
         e.preventDefault(); 
         const submitBtn = document.getElementById('submitBtn');
